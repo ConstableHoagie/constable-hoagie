@@ -1,0 +1,31 @@
+# Publishes a release when an autopatch pull request is merged (approved in the Admin panel or on GitHub).
+# Every Constable Hoagie install picks it up within ~6 hours (SHA-256 verified, two backups, one-click rollback).
+# Manual releases still use "Publish Update.cmd" on the owner's PC.
+name: Release autopatch
+on:
+  push:
+    branches: [main, master]
+jobs:
+  release:
+    if: contains(github.event.head_commit.message, 'autopatch') && !contains(github.event.head_commit.message, '[skip release]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Tests must pass before release
+        run: pip install keyring cryptography && python dev/run_tests.py
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MSG: ${{ github.event.head_commit.message }}
+        run: bash .github/scripts/release.sh "$MSG"

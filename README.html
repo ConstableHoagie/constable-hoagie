@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constable Hoagie v1.4.0 · Read me</title>
+<style>
+:root{--m:#ff3df2;--c:#3df5ff;--l:#b8ff4a;--g:#ffd84a;--bg:#0b0418;--card:#150b2b;--ink:#eee6ff;--mut:#b6a8e0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#3a136b,var(--bg) 55%);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,Nunito,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:18px}
+.hero{position:relative;height:340px;border-radius:26px;overflow:hidden;border:3px solid var(--m);box-shadow:0 0 30px rgba(255,61,242,.45);background:#07020f}
+.vortex{position:absolute;left:50%;top:50%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;
+ background:conic-gradient(from 0deg,#1b0a35,#39ff9c,#0b3b2a,#b8ff4a,#1b0a35,#39ff9c,#0b3b2a,#1b0a35);filter:blur(2px) url(#wob);opacity:.55;animation:spin 9s linear infinite}
+.vortex::after{content:"";position:absolute;inset:90px;border-radius:50%;background:radial-gradient(#07020f 30%,transparent 70%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stars{position:absolute;inset:0;background:radial-gradient(2px 2px at 10% 20%,#fff,transparent),radial-gradient(2px 2px at 70% 30%,var(--c),transparent),radial-gradient(2px 2px at 40% 80%,var(--m),transparent),radial-gradient(1px 1px at 90% 60%,#fff,transparent);background-size:220px 160px;animation:tw 4s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.4}}
+.hg{position:absolute;left:6%;bottom:-8px;height:330px;filter:url(#wob) drop-shadow(0 0 16px rgba(61,245,255,.55));animation:bob 2.6s ease-in-out infinite;transform-origin:bottom}
+.hg svg,.kw svg{height:100%;width:auto}
+.kw{position:absolute;right:7%;bottom:6px;height:120px;filter:url(#wob) drop-shadow(0 0 12px rgba(184,255,74,.6));animation:kiwi 7s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-1deg)}}
+@keyframes kiwi{0%,100%{transform:translateX(0) scaleX(1)}45%{transform:translateX(-180px) scaleX(1)}50%{transform:translateX(-180px) scaleX(-1)}95%{transform:translateX(0) scaleX(-1)}}
+.title{position:absolute;right:5%;top:22px;text-align:right}
+.title h1{margin:0;font:900 clamp(30px,6vw,56px)/1 system-ui;color:var(--c);text-shadow:0 0 14px var(--c),0 0 30px var(--m);filter:url(#wob)}
+.title p{margin:6px 0 0;color:var(--g);font-weight:800}
+.bubble{position:absolute;left:34%;top:150px;max-width:330px;background:#fff;color:#170a2e;border:3px solid #000;border-radius:22px;padding:10px 14px;font-weight:800;filter:url(#wob);opacity:0;transform:scale(.8);transition:all .35s}
+.bubble.on{opacity:1;transform:scale(1)}.bubble::after{content:"";position:absolute;left:-14px;bottom:18px;border:10px solid transparent;border-right-color:#000}
+section{background:var(--card);border:2px solid #3a2a66;border-radius:20px;padding:16px 18px;margin:16px 0}
+h2{margin:0 0 8px;color:var(--m);text-shadow:0 0 10px rgba(255,61,242,.5)}
+ul,ol{margin:0;padding-left:22px}li{margin:4px 0}
+.looks{display:grid;grid-template-columns:1fr 1fr;gap:12px}.look{border-radius:16px;padding:12px}.look.o{background:linear-gradient(#bfe6ff,#fff3dc);color:#2b1d14}.look.d{background:#0c0618;border:2px solid var(--m)}
+.legend span{margin-right:12px}
+details{border:1px solid #3a2a66;border-radius:14px;margin:8px 0;background:#110824}
+summary{cursor:pointer;padding:10px 14px;font-weight:900;color:var(--c)}summary span{float:right;color:var(--mut);font-weight:700}
+.tw{overflow:auto;padding:0 10px 10px}table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.5px;padding:6px}td{padding:7px 6px;border-top:1px solid #2a1d4d;vertical-align:top}
+.caps{font-size:12px;color:var(--mut)}
+.w,.s{display:inline-block;padding:1px 8px;border-radius:9px;font-size:12px;font-weight:800;white-space:nowrap}
+.w-both{background:#123a2a;color:var(--l)}.w-app{background:#3a2a10;color:var(--g)}.w-website{background:#10293a;color:var(--c)}
+.s-live{background:var(--l);color:#0b0418}.s-beta{background:var(--g);color:#0b0418}.s-planned,.s-not{background:#2a1d4d;color:var(--mut)}
+.fine{color:var(--mut);font-size:13px;text-align:center}
+@media(max-width:700px){.hero{height:300px}.hg{height:250px}.bubble{left:30%;top:120px;max-width:210px;font-size:13px}.looks{grid-template-columns:1fr}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="wob"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" seed="3"><animate attributeName="seed" values="1;2;3;4;5" dur=".5s" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="4"/></filter></svg>
+<div class="wrap">
+<div class="hero"><div class="stars"></div><div class="vortex"></div><div class="hg" id="hg"></div><div class="kw" id="kw"></div>
+<div class="title"><h1>Constable Hoagie</h1><p>v1.4.0 · Protecting &amp; Serving Your Dough</p></div><div class="bubble" id="bub"></div></div>
+
+<section><h2>What it is</h2><ul><li>Turns today's news and prices into a few simple money moves. Small bites, no homework.</li><li>Shows everything you own, what you spend and (on the full menu) every bet, in one place.</li><li>Never moves your money on its own. Every number is an estimate, not financial advice.</li></ul></section>
+<section><h2>Start in 3 steps</h2><ol><li>Double-click <b>Start Constable Hoagie</b>. First time, it installs what it needs (about 2 minutes).</li><li>Pick your look: <b>Original</b> (sunny, family-friendly) or <b>Dark Humor</b> (18+, neon, edgy jokes, no nudity).</li><li>Take the 2-minute tour with practice data, pick an AI brain, and connect only what you want.</li></ol></section>
+<section><h2>Two looks</h2><div class="looks"><div class="look o"><b>🥪 Original</b><br>Light, fluffy, family-friendly.</div>
+<div class="look d"><b>🌃 Dark Humor (18+)</b><br>Neon, edgy jokes, betting talk, a cat with a record. No nudity, just numbers.</div></div></section>
+<section><h2>App or website?</h2><p>The website is the same shop, served from the owner's PC, so it's only up while that PC is on.</p>
+<p class="legend"><span class="w w-both">Both</span> works anywhere <span class="w w-app">App</span> only on your PC <span class="w w-website">Website</span> needs the public address</p></section>
+<section><h2>What it can do</h2><details open><summary>📈 Trading &amp; Investing <span>8</span></summary><div class='tw'><table><tr><th>What</th><th>You get</th><th>Connects with</th><th>Works on</th><th>Status</th></tr><tr><td><b>Alpaca</b><div class='caps'>Balances · Positions · Paper orders · Live orders (capped)</div></td><td>Hoagie can place practice orders for you; live orders need you to type LIVE, confirm each one, and stay under your cap.</td><td>API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Coinbase (Advanced Trade)</b><div class='caps'>Balances · Live prices</div></td><td>Every coin priced live in My Tab and your net-worth line; daily auto-sync. Order support is planned.</td><td>API key (view-only)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Kraken</b><div class='caps'>Balances · Live prices</div></td><td>Balances in My Tab and net worth without risk: a query-only key can&#x27;t trade or withdraw.</td><td>API key (query-only)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>SnapTrade bridge</b><div class='caps'>Positions · Cash · 20+ brokers</div></td><td>One free read-only link for Robinhood, Schwab, Webull, E*TRADE, Vanguard, Fidelity, tastytrade, Public, IBKR and more.</td><td>Account link (you log in at your broker)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-beta'>Beta</span></td></tr><tr><td><b>Screenshot of any app</b><div class='caps'>Holdings · Balances</div></td><td>Drop a screenshot from any brokerage, crypto or retirement app; your AI reads it into My Tab.</td><td>Screenshot + your AI</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Type it in</b><div class='caps'>Anything with a value</div></td><td>Houses, cars, 401(k)s, cash under the mattress: tracked in net worth with live prices where they exist.</td><td>Manual</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Robinhood Agentic account</b><div class='caps'>Orders with approval</div></td><td>Would let Hoagie suggest and (with your OK) place stock trades inside a separate, capped account.</td><td>Robinhood MCP sign-in</td><td><span class='w w-both'>Both</span></td><td><span class='s s-planned'>Planned</span></td></tr><tr><td><b>Coinbase / Kraken orders</b><div class='caps'>Recurring buys · Rebalance</div></td><td>Recurring buys and rebalancing inside your limits, with the same confirm + cap rules as Alpaca.</td><td>API key (trade, no withdraw)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-planned'>Planned</span></td></tr></table></div></details>
+<details ><summary>🎰 Betting &amp; Fantasy (full menu) <span>13</span></summary><div class='tw'><table><tr><th>What</th><th>You get</th><th>Connects with</th><th>Works on</th><th>Status</th></tr><tr><td><b>The Odds API</b><div class='caps'>Lines from many books · Line shopping · Cricket</div></td><td>Real prices on every bet card; Today&#x27;s Games flags when one book&#x27;s price beats the fair line.</td><td>Free API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>ESPN scoreboard</b><div class='caps'>Schedules · Live scores · Final scores</div></td><td>Free games list for Today&#x27;s Games, and live scores beside each open bet in the Bet Tracker.</td><td>No key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>FantasyPros</b><div class='caps'>Projections · Rankings · Player news</div></td><td>Sharper DFS and prop reads, injury news on bet cards, better confidence numbers.</td><td>Personal API key (MVP/HOF plan)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Kalshi (prediction markets)</b><div class='caps'>Positions · Cash balance</div></td><td>Open Kalshi positions show up as live bets; your Kalshi cash joins your net worth. Read-only.</td><td>API key + private key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-beta'>Beta</span></td></tr><tr><td><b>Sleeper fantasy</b><div class='caps'>Leagues · Records · This week&#x27;s matchups</div></td><td>Your fantasy matchups sit beside your bets, scored live.</td><td>Username only (no key)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Bet slip screenshot (any sportsbook or DFS)</b><div class='caps'>Bets · Odds · Stakes · Status</div></td><td>DraftKings, FanDuel, PrizePicks, Underdog, anything: screenshot the slip and it lands in the Bet Tracker.</td><td>Screenshot + your AI</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Paste a bet slip</b><div class='caps'>Bets · Odds · Stakes</div></td><td>Paste &#x27;Lakers -3.5 -110 $20 DraftKings&#x27; (or a copied slip) and Hoagie fills in the bet.</td><td>Text</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Bet history CSV (Pikkit Pro, Juice Reel, spreadsheets)</b><div class='caps'>History · Profit · Record</div></td><td>Bring your whole history in: record, profit and ROI fill in immediately. Export back out anytime.</td><td>CSV file</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Your sports desk folder</b><div class='caps'>Picks · Ledger</div></td><td>Your own pick pipeline&#x27;s cards and record show on the board.</td><td>Local folder (read-only)</td><td><span class='w w-app'>App</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>NH &amp; TX lottery picker</b><div class='caps'>Random picks · Expected value</div></td><td>Picks that avoid popular patterns (fewer split jackpots) with honest odds. No buying.</td><td>Built in</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>SharpSports BetSync</b><div class='caps'>Auto-sync sportsbook accounts · Bet history · Balances</div></td><td>Would auto-sync DraftKings, FanDuel and more like Plaid does for banks. Needs a business deal (the LLC could apply).</td><td>Business API (needs an agreement)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-planned'>Planned</span></td></tr><tr><td><b>API-Sports</b><div class='caps'>More leagues · Live scores · Odds</div></td><td>Extra leagues and global soccer, basketball and NFL data beyond ESPN.</td><td>Free API key (100 calls/day)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-planned'>Planned</span></td></tr><tr><td><b>DraftKings / FanDuel / BetMGM direct</b></td><td>No public API, and their terms ban automation. Use slip screenshots, pasted slips, or a CSV export instead.</td><td>None offered</td><td><span class='w w-both'>Both</span></td><td><span class='s s-not'>Not possible</span></td></tr></table></div></details>
+<details open><summary>🧾 Money Management &amp; Banking <span>6</span></summary><div class='tw'><table><tr><th>What</th><th>You get</th><th>Connects with</th><th>Works on</th><th>Status</th></tr><tr><td><b>SimpleFIN bank sync</b><div class='caps'>Balances · Transactions</div></td><td>Bank balances update net worth automatically; spending flows into Costs, auto-sorted. Read-only.</td><td>Setup token ($1.50/mo, paid by each user)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Bank CSV import</b><div class='caps'>Transactions</div></td><td>Any bank&#x27;s export: columns detected, duplicates skipped, categories filled in.</td><td>CSV file</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Costs counter</b><div class='caps'>Budgets · Trends · CSV export</div></td><td>Every dollar out, sorted into 14 categories, with monthly budgets.</td><td>Built in</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Morning email (Gmail or Brevo)</b><div class='caps'>Daily digest</div></td><td>Your play, markets and news in your inbox, built without any AI account.</td><td>App password / SMTP key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Money Plan, Learn, Give</b><div class='caps'>Budget split · Lessons · Charity rankings</div></td><td>A step-by-step plan, one-minute lessons, and the charities that do the most per dollar.</td><td>Built in</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Plaid</b></td><td>Charges the host per connection and needs a company review; SimpleFIN keeps costs with each user instead.</td><td>Business API</td><td><span class='w w-both'>Both</span></td><td><span class='s s-not'>Not planned</span></td></tr></table></div></details>
+<details ><summary>📊 Market &amp; Economic Data <span>8</span></summary><div class='tw'><table><tr><th>What</th><th>You get</th><th>Connects with</th><th>Works on</th><th>Status</th></tr><tr><td><b>U.S. Treasury FiscalData</b><div class='caps'>T-bill &amp; note rates</div></td><td>The safe-money yardstick on your Dashboard.</td><td>No key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Bureau of Labor Statistics</b><div class='caps'>Inflation (CPI)</div></td><td>Know whether your cash is growing or shrinking.</td><td>No key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>SEC EDGAR</b><div class='caps'>10-K · 10-Q · 8-K filings</div></td><td>Official filings for every stock you own.</td><td>No key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Crypto Fear &amp; Greed</b><div class='caps'>Market mood</div></td><td>Don&#x27;t buy at peak hype.</td><td>No key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>FRED (St. Louis Fed)</b><div class='caps'>Fed rate · 10-yr · Yield curve · Mortgage · Jobs · Gas</div></td><td>Rates and recession signals in plain English.</td><td>Free API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Finnhub</b><div class='caps'>Earnings dates · Company news</div></td><td>No surprise earnings swings on stocks you hold.</td><td>Free API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Coinbase, ECB and Stooq prices</b><div class='caps'>Crypto · Currencies · US stocks (delayed)</div></td><td>Live values and the currency wiggle in your net worth.</td><td>No key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>News feeds (RSS)</b><div class='caps'>Markets · Crypto · Sports · Humanitarian</div></td><td>Today&#x27;s Specials and the News Rail; upbeat filter on money-only.</td><td>No key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr></table></div></details>
+<details ><summary>🧠 AI Brains &amp; Research <span>11</span></summary><div class='tw'><table><tr><th>What</th><th>You get</th><th>Connects with</th><th>Works on</th><th>Status</th></tr><tr><td><b>Claude</b><div class='caps'>Web research · Screenshots · Plays &amp; Playbook · Tour Q&amp;A</div></td><td>Fit 10/10: the smartest brain for the shop.</td><td>Claude Code login on the PC</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Gemini</b><div class='caps'>Answers · Screenshots · Plays</div></td><td>Fit 8/10: the best free brain.</td><td>Free API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>GPT (OpenAI)</b><div class='caps'>Answers · Screenshots · Plays</div></td><td>Fit 8/10.</td><td>API key (paid)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Your own agent (OpenAI-compatible)</b><div class='caps'>Answers · Plays · Screenshots if the model can</div></td><td>Fit 5-10, depends on the model: plug in the AI you already use.</td><td>Address + optional key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Groq</b><div class='caps'>Fast answers · Plays</div></td><td>Fit 6/10.</td><td>Free API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>OpenRouter free models</b><div class='caps'>Answers · Plays</div></td><td>Fit 6/10.</td><td>Free API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Ollama / LM Studio</b><div class='caps'>Answers · Plays · Private</div></td><td>Fit 5/10: free and private.</td><td>No account (runs on the PC)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Foundry Local</b><div class='caps'>Answers</div></td><td>Fit 4/10.</td><td>No account (runs on the PC)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Chrome built-in AI / WebLLM</b><div class='caps'>Ask counter</div></td><td>Fit 3/10: free for every visitor, Ask only.</td><td>No account (runs in your browser)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Tavily search</b><div class='caps'>Web search</div></td><td>Fresh articles behind answers and plays.</td><td>Free API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Brave Search</b><div class='caps'>Web search</div></td><td>Backup search engine.</td><td>API key</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr></table></div></details>
+<details ><summary>🔌 Open Connections (other apps &amp; agents) <span>9</span></summary><div class='tw'><table><tr><th>What</th><th>You get</th><th>Connects with</th><th>Works on</th><th>Status</th></tr><tr><td><b>Agent API (read, or read + log)</b><div class='caps'>Snapshot · Holdings · Dashboard · Bets · Spending · Add bets/costs</div></td><td>Let ChatGPT actions, n8n, scripts or any AI agent read your Hoagie data and log bets or spending. Local: http://127.0.0.1:8787/agent/v1. Online: https://beta.constablehoagie.com/agent/v1.</td><td>Personal token</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>MCP server (Claude Desktop, Claude Code, Cursor and other MCP apps)</b><div class='caps'>Ask about your money from any MCP app · Log bets</div></td><td>Your assistant gets Hoagie tools: snapshot, dashboard, bets, log a bet, log spending.</td><td>Local MCP (stdio) + token</td><td><span class='w w-app'>App</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Webhooks: Zapier, IFTTT, Make, iPhone Shortcuts</b><div class='caps'>Add a bet · Add spending</div></td><td>Tap a Shortcut after a purchase or a bet and it&#x27;s logged. Cloud tools need the website address (or run on this PC for local tools).</td><td>Token + POST /agent/v1/hook</td><td><span class='w w-website'>Website</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>CSV and PDF exports</b><div class='caps'>Costs CSV · Bets CSV · Playbook/Money Plan PDF</div></td><td>Take your data to Excel, Google Sheets or your accountant.</td><td>Download</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Screenshot drop</b><div class='caps'>Holdings · Bet slips</div></td><td>Any app without an API still gets in.</td><td>Upload</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>GitHub autopatcher (Claude Code GitHub Action)</b><div class='caps'>Scrubbed bug reports · Claude-drafted fixes · Admin approval · Auto-release</div></td><td>New errors become scrubbed GitHub issues; Claude drafts a tested fix; a Zero Cool admin approves it in the panel and every install updates. Email/Discord alerts per admin.</td><td>GitHub token + Claude repo secret</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Discord &amp; email alerts (per admin)</b><div class='caps'>Bug sent to Claude · Fix ready · Released</div></td><td>Each Zero Cool admin picks their own stream for autopatch news.</td><td>Discord webhook / the shop&#x27;s email</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Demo + guided tour</b><div class='caps'>10 personas · Guided tour · Ask Hoagie</div></td><td>Try everything with practice data before connecting anything.</td><td>Built in (simulated data)</td><td><span class='w w-both'>Both</span></td><td><span class='s s-live'>Live</span></td></tr><tr><td><b>Discord play &amp; bet alerts</b><div class='caps'>Play alerts · Bet results</div></td><td>Post plays and results to a private channel.</td><td>Webhook URL</td><td><span class='w w-both'>Both</span></td><td><span class='s s-planned'>Planned</span></td></tr></table></div></details></section>
+<section id="admins"><h2>For admins: adding people &amp; access</h2><ol><li>Open the shop on your PC (or sign in as a Zero Cool admin) and go to <b>🔌 Connect › 🔑 User accounts</b>.</li><li>Type a username, a password (10+ characters) and pick a tier: <b>Regular</b> or <b>Zero Cool</b>. Press <b>Add</b>.</li><li>Open <b>🕶 The Gibson › 👥 People &amp; links</b>. Press <b>🔗 New sign-in link</b> and send the website link privately (text or DM). It signs them straight in; making a new one kills the old one, and <b>Revoke</b> turns it off.</li><li>Same screen: change anyone's <b>tier</b>, or tick <b>🏈 Sports tab</b> to give a money-only person a separate tab with games and the Bet Tracker.</li><li>On their first visit everyone gets the look picker, Hoagie's welcome, the guided tour and the AI question, once. Each person picks their own menu (money-only or full). Replays live in <b>👤 Me</b>.</li><li><b>Autopatcher (once):</b> double-click <b>Setup Everything</b> and say yes to GitHub. It makes the repo, installs the workflows, the Claude GitHub App and the Claude token, and switches on reports. Claude's fixes then show up there for any Zero Cool admin to <b>Approve &amp; release</b> or <b>Reject</b>, and each admin can set their own email or Discord alerts.</li><li>Giving someone their own copy of the app? Leave out <code>app\seed</code> unless they should be a Zero Cool admin on their PC.</li></ol>
+<p class="legend"><span class="w w-both">Zero Cool</span> god-mode admin: everything plus the 🕶 Admin tab &nbsp; <span class="w w-website">Regular</span> the shop, no keys, settings or admin</p></section>
+<p class="fine">More: GUIDE.md (full guide) · CLAUDE.md (for your Claude) · docs/ · Not financial advice. If betting stops being fun: 1-800-GAMBLER.</p>
+</div>
+<script>// Constable Hoagie art, cel-shaded: ink outlines, a flat base tone, one hard shadow band,
+// a rim highlight. Everything is original and drawn as SVG so it scales crisply.
+window.ART = {};
+const INK = "#2b1d24";
+let _uid = 0;
+const uid = p => "hz-" + p + (++_uid);  // prefixed so art ids never clash with page ids
+
+// Cel-shade any closed shape. shape(attrs) returns the SVG element with those attrs.
+// Shadow falls bottom-right (light from top-left); dx/dy set the shadow band's thickness.
+function cel(shape, base, shade, dx = 7, dy = 6, sw = 3.5) {
+  const id = uid("c");
+  return `<clipPath id="${id}">${shape("")}</clipPath>
+    ${shape(`fill="${shade}"`)}
+    <g clip-path="url(#${id})"><g transform="translate(${-dx},${-dy})">${shape(`fill="${base}"`)}</g></g>
+    ${shape(`fill="none" stroke="${INK}" stroke-width="${sw}" stroke-linejoin="round"`)}`;
+}
+const shade = (hex, f = 0.78) => { // darker tone of a colour, for the shadow band
+  const n = parseInt(hex.slice(1), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  const m = x => Math.max(0, Math.min(255, Math.round(x * f)));
+  return "#" + ((1 << 24) | (m(r) << 16) | (m(g) << 8) | m(b)).toString(16).slice(1);
+};
+ART.shade = shade;
+
+// ------------------------------------------------------------------------------------------
+// Characters: one toon body used for Hoagie and every avatar, so they all match.
+// ------------------------------------------------------------------------------------------
+ART.HOAGIE = {
+  name: "Constable Hoagie", skin: "#f2c4a0", hair: "bald", hairC: "#3b2a20", beard: "full", beardC: "#5a3e2e",
+  glasses: true, hat: "constable", top: "tank", topC: "#1d1b22", apron: true, tattoos: true,
+  legs: "shorts", legC: "#1d1b22", shoeC: "#a9adb3", badge: true,
+};
+
+// Alison, in both looks (cartoon versions of the owner's partner, drawn from her photos)
+ART.ALISON = {
+  name: "Alison", skin: "#f1c6a6", hair: "bob", hairC: "#b8894f", hairHi: "#f2dca8", beard: "none", glasses: false,
+  hat: "none", top: "tee", topC: "#f4f4f7", apron: false, tattoos: false, legs: "pants", legC: "#1f1f26", shoeC: "#c8a27a", badge: false,
+};
+ART.ALISON_DARK = Object.assign({}, ART.ALISON, { hair: "bun", hairC: "#7a5233", glasses: true, top: "hoodie", topC: "#9aa3ad", legs: "shorts", legC: "#e9e4dc", shoeC: "#8a5a3a" });
+
+ART.toon = function (c, opts = {}) {
+  const u = uid("t"), sk = c.skin || "#f2c4a0", skD = shade(sk), topC = c.topC || "#c8102e", legC = c.legC || "#2d3a5a";
+  const shoeC = c.shoeC || "#f4f1e8", hairC = c.hairC || "#3b2a20", beardC = c.beardC || hairC;
+  const tat = c.tattoos ? `url(#tat${u})` : sk;
+  const limb = (x, y, w, h, rot, ox, oy) => s => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${w / 2}" transform="rotate(${rot} ${ox} ${oy})" ${s}/>`;
+  const defs = `<defs>
+    <pattern id="tat${u}" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="${sk}"/><path d="M0 8 q4 -7 8 0 t8 0" stroke="#3b5f7d" stroke-width="2.2" fill="none"/>
+      <circle cx="12" cy="3" r="1.8" fill="#6a3f7a"/><path d="M2 14 l3 -3 l3 3" stroke="#2e6b48" stroke-width="1.6" fill="none"/></pattern>
+    <filter id="toon${u}"><feComponentTransfer>
+      <feFuncR type="discrete" tableValues="0.08 0.35 0.62 0.86 1"/><feFuncG type="discrete" tableValues="0.06 0.32 0.58 0.82 0.98"/>
+      <feFuncB type="discrete" tableValues="0.08 0.3 0.55 0.8 0.96"/></feComponentTransfer></filter></defs>`;
+
+  // legs + shoes
+  const legs = `
+    <g class="leg legL">${cel(limb(60, 176, 18, 52, 0, 0, 0), c.legs === "pants" ? legC : sk, c.legs === "pants" ? shade(legC) : skD, 5, 0)}
+      ${cel(s => `<path d="M54 226 q0 -8 12 -8 h8 q10 0 10 10 q0 6 -6 6 h-20 q-4 0 -4 -8z" ${s}/>`, shoeC, shade(shoeC), 3, 3)}</g>
+    <g class="leg legR">${cel(limb(82, 176, 18, 52, 0, 0, 0), c.legs === "pants" ? legC : sk, c.legs === "pants" ? shade(legC) : skD, 5, 0)}
+      ${cel(s => `<path d="M80 228 q0 -10 10 -10 h8 q12 0 12 8 q0 8 -4 8 h-22 q-4 0 -4 -6z" ${s}/>`, shoeC, shade(shoeC), 3, 3)}</g>`;
+  const shorts = c.legs === "pants" ? cel(s => `<path d="M54 160 h52 l2 30 h-56z" ${s}/>`, legC, shade(legC), 6, 4)
+    : cel(s => `<path d="M52 158 h56 l4 40 h-26 l-6 -12 l-6 12 h-26z" ${s}/>`, legC, shade(legC), 6, 4);
+  // arms (right one waves)
+  const armL = `<g class="armL">${cel(limb(30, 112, 20, 62, 12, 40, 114), tat, skD, 6, 2)}
+    ${cel(s => `<circle cx="28" cy="176" r="11" ${s}/>`, sk, skD, 3, 3)}</g>`;
+  const armR = `<g class="armR">${cel(limb(110, 112, 20, 62, -12, 120, 114), tat, skD, 6, 2)}
+    ${cel(s => `<circle cx="132" cy="176" r="11" ${s}/>`, sk, skD, 3, 3)}</g>`;
+  // torso
+  const torsoPath = c.top === "hoodie" ? "M42 118 q38 -16 76 0 l-4 70 q-34 8 -68 0z" : "M46 116 q34 -12 68 0 l-4 72 q-30 8 -60 0z";
+  let torso = cel(s => `<path d="${torsoPath}" ${s}/>`, topC, shade(topC), 9, 4);
+  if (c.top === "tank") torso = cel(s => `<path d="M48 116 q32 -10 64 0 l-4 72 q-28 8 -56 0z" ${s}/>`, topC, shade(topC), 9, 4)
+    + `<path d="M62 112 q18 18 36 0" fill="${sk}" stroke="${INK}" stroke-width="3"/>`;
+  if (c.top === "hoodie") torso += `<path d="M80 124 v40" stroke="${shade(topC, .6)}" stroke-width="3"/><path d="M60 170 h40" stroke="${shade(topC, .6)}" stroke-width="3"/>`;
+  const apron = c.apron ? cel(s => `<path d="M58 128 h44 l6 66 q-28 8 -56 0z" ${s}/>`, "#fbfaf4", "#d9d4c4", 8, 3)
+    + `<path d="M60 128 q20 -18 40 0" fill="none" stroke="${INK}" stroke-width="3"/>
+       <rect x="68" y="150" width="24" height="16" rx="4" fill="#efeadd" stroke="${INK}" stroke-width="2.5"/>
+       ${c.badge ? `<text x="80" y="162" font-size="10" text-anchor="middle" font-family="Lilita One, sans-serif" fill="#c8102e">CH</text>` : `<path d="M74 152 v10 M78 152 v10" stroke="#3b5f7d" stroke-width="2"/>`}
+       <path d="M56 142 h48" stroke="#c8102e" stroke-width="3"/>` : "";
+  const neck = cel(s => `<rect x="70" y="98" width="20" height="22" rx="6" ${s}/>`, sk, skD, 4, 0);
+
+  // head
+  let face;
+  const headShape = s => `<ellipse cx="80" cy="66" rx="44" ry="42" ${s}/>`;
+  const ears = cel(s => `<ellipse cx="38" cy="72" rx="8" ry="11" ${s}/>`, sk, skD, 3, 3) + cel(s => `<ellipse cx="122" cy="72" rx="8" ry="11" ${s}/>`, sk, skD, 3, 3);
+  if (c.photo) {
+    const cp = uid("pc");
+    face = `${ears}<clipPath id="${cp}">${headShape("")}</clipPath>${headShape(`fill="${sk}"`)}
+      <image href="${c.photo}" x="34" y="22" width="92" height="90" clip-path="url(#${cp})" preserveAspectRatio="xMidYMid slice" filter="url(#toon${u})"/>
+      ${headShape(`fill="none" stroke="${INK}" stroke-width="3.5"`)}
+      <path d="M48 40 q12 -16 30 -18" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".55" fill="none"/>`;
+  } else {
+    const hair = {
+      bald: `<path d="M50 34 q14 -16 34 -16" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".55" fill="none"/>`,
+      short: cel(s => `<path d="M36 66 q-4 -46 44 -46 q48 0 44 46 q-8 -24 -44 -26 q-36 2 -44 26z" ${s}/>`, hairC, shade(hairC), 6, 5),
+      spiky: cel(s => `<path d="M36 64 l-2 -20 l12 6 l4 -20 l12 12 l8 -18 l10 16 l12 -14 l4 20 l12 -6 l-2 24 q-8 -22 -44 -24 q-36 2 -46 24z" ${s}/>`, hairC, shade(hairC), 5, 5),
+      long: cel(s => `<path d="M34 70 q-6 -50 46 -50 q52 0 46 50 v42 q-8 -4 -8 -30 q0 -30 -38 -34 q-38 4 -38 34 q0 26 -8 30z" ${s}/>`, hairC, shade(hairC), 6, 5),
+      curly: `<g>${[38, 52, 66, 80, 94, 108, 122].map((x, i) => cel(s => `<circle cx="${x}" cy="${30 + (i % 2) * 8 + Math.abs(80 - x) / 4}" r="13" ${s}/>`, hairC, shade(hairC), 4, 4, 3)).join("")}</g>`,
+      bob: cel(s => `<path d="M32 74 q-8 -54 48 -54 q56 0 48 54 v28 q-10 4 -14 -6 q-4 -40 -34 -48 q-30 8 -34 48 q-4 10 -14 6z" ${s}/>`, hairC, shade(hairC), 6, 5)
+        + `<path d="M58 30 q-10 20 -14 60 M92 26 q14 18 18 62" stroke="${c.hairHi || "#f3dba4"}" stroke-width="4" stroke-linecap="round" fill="none" opacity=".75"/>`,
+      bun: cel(s => `<path d="M36 66 q-4 -46 44 -46 q48 0 44 46 q-8 -24 -44 -26 q-36 2 -44 26z" ${s}/>`, hairC, shade(hairC), 6, 5) + cel(s => `<circle cx="80" cy="14" r="13" ${s}/>`, hairC, shade(hairC), 4, 4),
+    }[c.hair || "short"] || "";
+    const beard = {
+      none: "",
+      stubble: `<path d="M44 80 q4 34 36 36 q32 -2 36 -36 q-8 18 -36 20 q-28 -2 -36 -20z" fill="${beardC}" opacity=".28"/>`,
+      short: cel(s => `<path d="M46 84 q6 30 34 32 q28 -2 34 -32 q-10 16 -34 16 q-24 0 -34 -16z" ${s}/>`, beardC, shade(beardC), 4, 4, 3),
+      full: cel(s => `<path d="M38 72 q0 50 42 52 q42 -2 42 -52 q-10 26 -42 26 q-32 0 -42 -26z" ${s}/>`, beardC, shade(beardC), 5, 6, 3.5)
+        + `<path d="M58 106 q4 6 8 8 M102 106 q-4 6 -8 8 M76 118 l2 4 M84 118 l-2 4" stroke="#a08f80" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+    }[c.beard || "none"] || "";
+    const mustache = c.beard === "full" || c.beard === "short"
+      ? cel(s => `<path d="M60 92 q10 -9 20 -2 q10 -7 20 2 q-6 7 -20 4 q-14 3 -20 -4z" ${s}/>`, shade(beardC, .9), shade(beardC, .7), 2, 2, 3) : "";
+    const glasses = c.glasses ? `<g class="specs"><circle cx="63" cy="70" r="15" fill="rgba(255,255,255,.12)" stroke="${INK}" stroke-width="4.5"/>
+        <circle cx="97" cy="70" r="15" fill="rgba(255,255,255,.12)" stroke="${INK}" stroke-width="4.5"/><path d="M78 70 h4 M48 68 l-10 -3 M112 68 l10 -3" stroke="${INK}" stroke-width="4"/>
+        <path d="M55 61 l6 -4 M89 61 l6 -4" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/></g>` : "";
+    face = `${ears}${cel(headShape, sk, skD, 9, 7)}${hair}${beard}
+      <g class="eyes">
+        <ellipse cx="63" cy="71" rx="8.5" ry="10" fill="#fff" stroke="${INK}" stroke-width="2.5"/><ellipse cx="97" cy="71" rx="8.5" ry="10" fill="#fff" stroke="${INK}" stroke-width="2.5"/>
+        <circle class="pupil" cx="65" cy="72" r="4.6" fill="${INK}"/><circle class="pupil" cx="99" cy="72" r="4.6" fill="${INK}"/>
+        <circle cx="66.5" cy="70" r="1.6" fill="#fff"/><circle cx="100.5" cy="70" r="1.6" fill="#fff"/>
+        <g class="lids"><rect x="53" y="58" width="21" height="0" fill="${sk}"/><rect x="87" y="58" width="21" height="0" fill="${sk}"/></g>
+      </g>
+      <path class="brow" d="M53 55 q10 -6 19 -1" stroke="${c.hair === "bald" ? shade(beardC, .9) : hairC}" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <path class="brow" d="M88 54 q10 -5 19 1" stroke="${c.hair === "bald" ? shade(beardC, .9) : hairC}" stroke-width="5" stroke-linecap="round" fill="none"/>
+      ${cel(s => `<path d="M76 76 q-6 12 0 14 q4 2 8 0 q6 -2 0 -14z" ${s}/>`, sk, skD, 3, 2, 2.6)}
+      ${mustache}
+      <path class="mouth" d="M68 100 q12 11 24 0 q-12 4 -24 0z" fill="#7d2a33" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
+      ${glasses}`;
+  }
+  const hats = {
+    none: "",
+    constable: cel(s => `<path d="M38 50 q42 -78 84 0z" ${s}/>`, "#24326b", "#18224c", 7, 6)
+      + cel(s => `<ellipse cx="80" cy="50" rx="46" ry="8" ${s}/>`, "#1a2552", "#121a3c", 3, 3, 3)
+      + cel(s => `<path d="M68 38 l12 -16 l12 16 l-12 8z" ${s}/>`, "#f0c443", "#c79a1f", 3, 3, 2.5)
+      + `<ellipse cx="80" cy="33" rx="6" ry="2.6" fill="#e8b96a" stroke="${INK}" stroke-width="1.5"/><path d="M75 32 h10" stroke="#5c8a2c" stroke-width="1.5"/>
+         ${cel(s => `<circle cx="80" cy="-2" r="5" ${s}/>`, "#f0c443", "#c79a1f", 2, 2, 2.5)}
+         <path d="M52 30 q10 -20 26 -26" stroke="#fff" stroke-width="4" opacity=".35" stroke-linecap="round" fill="none"/>`,
+    hardhat: cel(s => `<path d="M38 52 q42 -70 84 0z" ${s}/>`, "#ffc93c", "#e0a10f", 7, 6)
+      + cel(s => `<rect x="30" y="46" width="100" height="12" rx="6" ${s}/>`, "#f2b51c", "#cf9208", 2, 3, 3)
+      + `<path d="M80 6 v40" stroke="${INK}" stroke-width="3" opacity=".35"/><path d="M52 34 q10 -18 24 -24" stroke="#fff" stroke-width="4" opacity=".45" stroke-linecap="round" fill="none"/>`,
+    cap: cel(s => `<path d="M36 50 q44 -60 88 0z" ${s}/>`, c.topC || "#c8102e", shade(c.topC || "#c8102e"), 6, 5)
+      + cel(s => `<path d="M96 46 h42 q-4 10 -40 8z" ${s}/>`, c.topC || "#c8102e", shade(c.topC || "#c8102e"), 3, 3, 3),
+    beanie: cel(s => `<path d="M36 54 q44 -66 88 0z" ${s}/>`, "#e04e39", "#b73a28", 6, 5) + cel(s => `<rect x="34" y="46" width="92" height="14" rx="7" ${s}/>`, "#b73a28", "#8f2c1f", 2, 3, 3)
+      + cel(s => `<circle cx="80" cy="4" r="9" ${s}/>`, "#fff", "#ddd", 2, 2, 3),
+    chef: cel(s => `<rect x="48" y="20" width="64" height="30" rx="6" ${s}/>`, "#fff", "#e3e0d6", 5, 3)
+      + [58, 80, 102].map((x, i) => cel(s => `<circle cx="${x}" cy="${i === 1 ? 10 : 16}" r="${i === 1 ? 17 : 14}" ${s}/>`, "#fff", "#e3e0d6", 4, 3, 3)).join(""),
+  }[c.hat || "none"] || "";
+
+  return `<svg viewBox="0 -14 160 260" xmlns="http://www.w3.org/2000/svg" class="toon" aria-label="${(c.name || "character").replace(/"/g, "")}">
+    ${defs}<ellipse cx="80" cy="236" rx="40" ry="7" fill="rgba(0,0,0,.18)"/>
+    <g class="body">${legs}${shorts}${armL}${torso}${apron}${armR}${neck}<g class="head">${face}${hats}</g></g></svg>`;
+};
+
+// ------------------------------------------------------------------------------------------
+// Kiwi: chunky, fluffy, tortoiseshell, green eyes. Cel-shaded side view.
+// ------------------------------------------------------------------------------------------
+ART.kiwi = (() => {
+  const fluff = (cx, cy, rx, ry, n, amp) => {
+    let d = "";
+    for (let i = 0; i <= n; i++) {
+      const a = (i / n) * Math.PI * 2, r1 = 1 + (i % 2 ? amp : -amp * .3);
+      const x = cx + Math.cos(a) * rx * r1, y = cy + Math.sin(a) * ry * r1;
+      d += (i ? " L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
+    }
+    return d + "Z";
+  };
+  const D = "#2e2019", M = "#4a3226", O = "#d0893f", L = "#e7b06a";
+  const body = fluff(70, 74, 46, 26, 34, .09), head = fluff(124, 52, 30, 28, 26, .08), tail = "M28 72 q-26 -6 -20 -38 q4 -14 14 -10 q-8 6 -6 20 q2 14 18 20z";
+  return `<svg viewBox="-8 0 170 112" xmlns="http://www.w3.org/2000/svg" class="kiwi-svg" aria-label="Kiwi the cat">
+    <ellipse cx="74" cy="104" rx="52" ry="6" fill="rgba(0,0,0,.18)"/>
+    <g class="tail">${cel(s => `<path d="${tail}" ${s}/>`, M, D, 4, 4)}<path d="M12 36 q2 -8 8 -10" stroke="${O}" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+    <g class="kleg kleg1">${cel(s => `<rect x="38" y="80" width="15" height="24" rx="7" ${s}/>`, D, "#1f150f", 3, 0, 3)}</g>
+    <g class="kleg kleg3">${cel(s => `<rect x="88" y="80" width="15" height="24" rx="7" ${s}/>`, D, "#1f150f", 3, 0, 3)}</g>
+    ${cel(s => `<path d="${body}" ${s}/>`, M, D, 8, 8)}
+    <path d="M40 66 q14 -16 30 -6 q-12 14 -30 6z" fill="${O}"/><path d="M78 58 q16 -8 28 4 q-16 8 -28 -4z" fill="${L}" opacity=".85"/>
+    <path d="M48 92 q22 8 44 0" stroke="${L}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+    <path d="M36 58 q14 -12 30 -12" stroke="#fff" stroke-width="3" opacity=".25" stroke-linecap="round" fill="none"/>
+    <g class="kleg kleg2">${cel(s => `<rect x="52" y="84" width="15" height="22" rx="7" ${s}/>`, M, D, 3, 0, 3)}</g>
+    <g class="kleg kleg4">${cel(s => `<rect x="100" y="84" width="15" height="22" rx="7" ${s}/>`, M, D, 3, 0, 3)}</g>
+    <g class="khead">
+      ${cel(s => `<path d="M100 36 l4 -28 l18 20z" ${s}/>`, D, "#1f150f", 2, 2, 3)}${cel(s => `<path d="M132 26 l16 -20 l2 30z" ${s}/>`, M, D, 2, 2, 3)}
+      <path d="M106 28 l2 -12 l8 9z" fill="${O}"/><path d="M138 26 l8 -10 l1 13z" fill="#e58a9b" opacity=".7"/>
+      ${cel(s => `<path d="${head}" ${s}/>`, D, "#1f150f", 6, 6)}
+      <path d="M104 40 q12 -10 22 0 q-10 8 -22 0z" fill="${O}"/><path d="M128 66 q10 4 20 -2 q-6 10 -20 2z" fill="${L}"/>
+      <g class="keyes">
+        <ellipse cx="114" cy="52" rx="7" ry="8.5" fill="#b9e66a" stroke="${INK}" stroke-width="2.5"/><ellipse cx="136" cy="52" rx="7" ry="8.5" fill="#b9e66a" stroke="${INK}" stroke-width="2.5"/>
+        <ellipse cx="115" cy="53" rx="2.4" ry="6" fill="${INK}"/><ellipse cx="137" cy="53" rx="2.4" ry="6" fill="${INK}"/>
+        <circle cx="117" cy="49" r="2" fill="#fff"/><circle cx="139" cy="49" r="2" fill="#fff"/>
+      </g>
+      <path d="M123 62 l3 3 l3 -3z" fill="#f08ea0" stroke="${INK}" stroke-width="1.5"/>
+      <path d="M126 65 q-4 5 -9 2 M126 65 q4 5 9 2" stroke="${INK}" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M106 64 h-16 M106 68 l-15 3 M146 64 h14 M146 68 l13 3" stroke="#efe6d6" stroke-width="1.4"/>
+      <g class="kcollar"><path d="M106 76 q20 10 40 -2" stroke="#b13cff" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="126" cy="84" r="5" fill="#0b2230" stroke="#3df5ff" stroke-width="2"/></g>
+    </g></svg>`;
+})();
+
+ART.scratcher = `<svg viewBox="0 0 130 74" xmlns="http://www.w3.org/2000/svg">
+  ${cel(s => `<path d="M6 68 l14 -46 h90 l14 46z" ${s}/>`, "#d6a565", "#b07f42", 8, 4)}
+  ${Array.from({ length: 10 }, (_, i) => `<path d="M${26 + i * 8.5} 30 l-5 32" stroke="#9a6e38" stroke-width="2.5"/>`).join("")}
+  <rect x="38" y="44" width="54" height="16" rx="4" fill="#fff6e4" stroke="${INK}" stroke-width="2.5"/>
+  <text x="65" y="56" font-size="11" text-anchor="middle" font-family="Lilita One, sans-serif" fill="#7a5226">KIWI'S</text></svg>`;
+ART.bowl = `<svg viewBox="0 0 90 48" xmlns="http://www.w3.org/2000/svg">
+  ${cel(s => `<path d="M8 16 q6 28 37 28 q31 0 37 -28z" ${s}/>`, "#e8384f", "#b8243a", 6, 5)}
+  <ellipse cx="45" cy="16" rx="37" ry="8" fill="#8a4a2a" stroke="${INK}" stroke-width="3"/>
+  ${[30, 42, 54].map(x => `<circle cx="${x}" cy="13" r="4" fill="#d58a3c" stroke="${INK}" stroke-width="1.5"/>`).join("")}
+  <text x="45" y="35" font-size="10" text-anchor="middle" font-family="Lilita One, sans-serif" fill="#fff">TREATS</text></svg>`;
+
+// ------------------------------------------------------------------------------------------
+// The shop interior: a game level. Hotspots (class "hot") open counters.
+// Two layers: back (wall, boards, floor) and front (the counter), with Hoagie between them.
+// ------------------------------------------------------------------------------------------
+const hot = (open, label, inner, mx, my) => `<g class="hot" data-open="${open}" tabindex="0" role="button" aria-label="${label}">${inner}
+  <g class="marker" transform="translate(${mx} ${my})"><g class="bounce">${cel(s => `<path d="M-13 -30 h26 l-4 22 h-18z" ${s}/>`, "#ffd23f", "#e5a91c", 3, 3, 3)}
+  <text x="0" y="-13" text-anchor="middle" font-size="18" font-family="Lilita One, sans-serif" fill="${INK}">!</text></g>
+  <g class="hot-label"><rect x="-70" y="-62" width="140" height="26" rx="13" fill="${INK}"/><text x="0" y="-44" text-anchor="middle" font-size="14" fill="#fff" font-family="Nunito, sans-serif" font-weight="900">${label}</text></g></g></g>`;
+
+ART.sceneBack = `<svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" class="scene-svg">
+  <defs>
+    <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3dc"/><stop offset="1" stop-color="#ffe6bf"/></linearGradient>
+    <pattern id="tileW" width="36" height="24" patternUnits="userSpaceOnUse"><rect width="36" height="24" fill="#3f8f5a"/><rect x="2" y="2" width="32" height="20" rx="3" fill="#4fa56b"/><rect x="4" y="4" width="14" height="5" rx="2" fill="#7cc792" opacity=".6"/></pattern>
+    <pattern id="board" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#26382f"/><circle cx="3" cy="4" r=".6" fill="#3a5246"/></pattern>
+  </defs>
+  <rect width="1200" height="560" fill="url(#wallG)"/>
+  <!-- sunbeams -->
+  <path d="M120 0 l120 0 l-260 560 l-120 0z" fill="#fff" opacity=".18"/><path d="M330 0 l60 0 l-220 560 l-60 0z" fill="#fff" opacity=".12"/>
+  <!-- wainscot tile -->
+  <rect x="0" y="262" width="1200" height="160" fill="url(#tileW)"/><rect x="0" y="252" width="1200" height="14" fill="#2f6b3a" stroke="${INK}" stroke-width="3"/>
+  <!-- pendant lamps -->
+  ${[260, 600, 940].map(x => `<path d="M${x} 0 v40" stroke="${INK}" stroke-width="3"/>${cel(s => `<path d="M${x - 34} 70 q34 -44 68 0z" ${s}/>`, "#e8384f", "#b8243a", 6, 4)}
+    <ellipse cx="${x}" cy="72" rx="14" ry="6" fill="#fff6c8" stroke="${INK}" stroke-width="2.5"/><path d="M${x - 70} 76 l140 0 l60 180 l-260 0z" fill="#fff8d0" opacity=".16"/>`).join("")}
+  <!-- left: fuse box = Connect -->
+  ${hot("connect", "🔌 Connect Counter", `${cel(s => `<rect x="42" y="120" width="96" height="120" rx="10" ${s}/>`, "#9aa7b4", "#73808c", 8, 6)}
+    <rect x="56" y="136" width="68" height="36" rx="6" fill="#2b3640" stroke="${INK}" stroke-width="3"/>
+    ${[0, 1, 2].map(i => `<circle cx="${70 + i * 20}" cy="154" r="6" fill="${["#52e07a", "#ffd23f", "#52e07a"][i]}" stroke="${INK}" stroke-width="2"/>`).join("")}
+    <path d="M78 186 l-8 18 h12 l-6 20 l18 -26 h-12 l6 -12z" fill="#ffd23f" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>`, 90, 116)}
+  <!-- menu boards on the wall -->
+  ${hot("news", "📰 News Rail", `${cel(s => `<rect x="190" y="96" width="250" height="140" rx="10" ${s}/>`, "#8a5a33", "#6b4426", 8, 6)}
+    <rect x="202" y="108" width="226" height="116" rx="6" fill="url(#board)" stroke="${INK}" stroke-width="3"/>
+    <text x="315" y="138" text-anchor="middle" font-size="22" font-family="Lilita One, sans-serif" fill="#ffd23f">TODAY'S NEWS</text>
+    <path d="M222 158 h120 M222 178 h170 M222 198 h90" stroke="#e8e3d3" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+    <circle cx="400" cy="196" r="12" fill="#e8384f" stroke="#fff" stroke-width="2"/>`, 315, 92)}
+  ${hot("playbook", "📋 Build a Playbook", `${cel(s => `<rect x="470" y="86" width="260" height="150" rx="10" ${s}/>`, "#8a5a33", "#6b4426", 8, 6)}
+    <rect x="482" y="98" width="236" height="126" rx="6" fill="url(#board)" stroke="${INK}" stroke-width="3"/>
+    <text x="600" y="130" text-anchor="middle" font-size="24" font-family="Lilita One, sans-serif" fill="#fff">PLAYBOOK MENU</text>
+    <text x="510" y="160" font-size="15" font-family="Nunito, sans-serif" font-weight="900" fill="#ffd23f">⚡ SAME DAY</text><text x="690" y="160" text-anchor="end" font-size="15" fill="#e8e3d3" font-family="Nunito, sans-serif" font-weight="900">🌶🌶🌶</text>
+    <text x="510" y="184" font-size="15" font-family="Nunito, sans-serif" font-weight="900" fill="#ffd23f">🗓 2 DAYS–4 WKS</text><text x="690" y="184" text-anchor="end" font-size="15" fill="#e8e3d3" font-family="Nunito, sans-serif" font-weight="900">🌶🌶</text>
+    <text x="510" y="208" font-size="15" font-family="Nunito, sans-serif" font-weight="900" fill="#ffd23f">🌳 LONG HAUL</text><text x="690" y="208" text-anchor="end" font-size="15" fill="#e8e3d3" font-family="Nunito, sans-serif" font-weight="900">🌶</text>`, 600, 82)}
+  ${hot("lotto", "🎟️ Lucky Tickets", `${cel(s => `<rect x="760" y="104" width="150" height="132" rx="12" ${s}/>`, "#7c4dbf", "#5d3797", 8, 6)}
+    <rect x="776" y="120" width="118" height="52" rx="8" fill="#2a1d44" stroke="${INK}" stroke-width="3"/>
+    ${[0, 1, 2].map(i => `<circle cx="${800 + i * 35}" cy="146" r="13" fill="#fff" stroke="${INK}" stroke-width="2.5"/><text x="${800 + i * 35}" y="152" text-anchor="middle" font-size="15" font-family="Lilita One, sans-serif" fill="${INK}">${[7, 23, 41][i]}</text>`).join("")}
+    <text x="835" y="200" text-anchor="middle" font-size="16" font-family="Lilita One, sans-serif" fill="#ffd23f">LUCKY</text>
+    <rect x="806" y="210" width="58" height="16" rx="4" fill="#ffd23f" stroke="${INK}" stroke-width="2.5"/>`, 835, 100)}
+  <!-- right: inspector certificate + mirror -->
+  ${hot("health", "🩺 Health Inspector", `${cel(s => `<rect x="952" y="104" width="96" height="120" rx="6" ${s}/>`, "#e8c87a", "#c4a352", 6, 5)}
+    <rect x="964" y="116" width="72" height="96" fill="#fffdf4" stroke="${INK}" stroke-width="2.5"/>
+    <text x="1000" y="140" text-anchor="middle" font-size="12" font-family="Lilita One, sans-serif" fill="#2f6b3a">HEALTH</text>
+    <text x="1000" y="182" text-anchor="middle" font-size="34" font-family="Lilita One, sans-serif" fill="#2f6b3a" class="grade">A</text>
+    <path d="M976 196 h48" stroke="#c9c2b0" stroke-width="3"/>`, 1000, 100)}
+  ${hot("avatar", "🧑‍🍳 Make Your Avatar", `${cel(s => `<ellipse cx="1124" cy="170" rx="50" ry="70" ${s}/>`, "#e8c87a", "#c4a352", 6, 5)}
+    <ellipse cx="1124" cy="170" rx="38" ry="58" fill="#bfe6f5" stroke="${INK}" stroke-width="3"/><path d="M1104 136 l24 -18 M1100 160 l40 -30" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".8"/>`, 1124, 96)}
+  <!-- floor: perspective checker -->
+  <rect x="0" y="420" width="1200" height="140" fill="#e9dcc6"/>
+  ${(() => { let o = ""; const rows = 5; for (let r = 0; r < rows; r++) { const y0 = 420 + r * 28, y1 = y0 + 28; const n = 24;
+      for (let i = -4; i < n + 4; i++) { if ((i + r) % 2) continue; const sk = (x, y) => 600 + (x - 600) * (0.82 + (y - 420) / 140 * 0.4);
+        const xa = i * 50, xb = xa + 50; o += `<path d="M${sk(xa, y0)} ${y0} L${sk(xb, y0)} ${y0} L${sk(xb, y1)} ${y1} L${sk(xa, y1)} ${y1}Z" fill="#c9b796"/>`; } } return o; })()}
+  <path d="M0 420 h1200" stroke="${INK}" stroke-width="3"/>
+</svg>`;
+
+ART.sceneFront = `<svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" class="scene-svg front">
+  <!-- counter -->
+  ${cel(s => `<path d="M150 330 h900 l14 108 h-928z" ${s}/>`, "#c8102e", "#9c0c23", 10, 6, 4)}
+  <path d="M150 330 h900" stroke="#fff" stroke-width="5" opacity=".3"/>
+  ${Array.from({ length: 12 }, (_, i) => `<path d="M${210 + i * 72} 350 v74" stroke="#9c0c23" stroke-width="5" stroke-linecap="round"/>`).join("")}
+  ${cel(s => `<rect x="130" y="312" width="940" height="26" rx="8" ${s}/>`, "#f7efe0", "#d8cdb6", 6, 5, 4)}
+  <!-- deli case -->
+  ${cel(s => `<path d="M420 248 h300 l20 64 h-340z" ${s}/>`, "#cfeef7", "#9ccfdd", 8, 4)}
+  <path d="M440 260 l-10 40 M520 256 l-14 50" stroke="#fff" stroke-width="5" opacity=".7" stroke-linecap="round"/>
+  ${[470, 560, 650].map(x => cel(s => `<rect x="${x}" y="282" width="70" height="22" rx="11" ${s}/>`, "#e8b56a", "#c48f45", 4, 3, 3)
+    + `<path d="M${x + 6} 288 h58" stroke="#5aa83c" stroke-width="4"/><path d="M${x + 6} 293 h58" stroke="#e04e39" stroke-width="3"/>`).join("")}
+  <!-- bell = Ask -->
+  ${hot("ask", "🔔 Ask the Constable", `${cel(s => `<path d="M318 312 q0 -40 34 -40 q34 0 34 40z" ${s}/>`, "#f0c443", "#c79a1f", 6, 4)}
+    <rect x="312" y="308" width="80" height="8" rx="4" fill="#9a7a2a" stroke="${INK}" stroke-width="2.5"/>${cel(s => `<circle cx="352" cy="268" r="7" ${s}/>`, "#f0c443", "#c79a1f", 2, 2, 2.5)}
+    <path d="M330 290 q6 -12 14 -14" stroke="#fff" stroke-width="4" opacity=".6" stroke-linecap="round" fill="none"/>`, 352, 262)}
+  <!-- register = My Tab -->
+  ${hot("tab", "💼 My Tab", `${cel(s => `<path d="M800 312 l10 -60 h100 l10 60z" ${s}/>`, "#5b6b7a", "#44515d", 7, 5)}
+    ${cel(s => `<rect x="822" y="214" width="76" height="40" rx="6" ${s}/>`, "#3a4652", "#2b343d", 4, 3, 3)}
+    <rect x="830" y="222" width="60" height="22" rx="3" fill="#7dff9a" stroke="${INK}" stroke-width="2"/><text x="860" y="239" text-anchor="middle" font-size="15" font-family="Lilita One, sans-serif" fill="#1f5c2d">$$$</text>
+    ${[0, 1, 2].map(r => [0, 1, 2, 3].map(c2 => `<rect x="${822 + c2 * 20}" y="${264 + r * 13}" width="14" height="9" rx="2" fill="#dfe6ec" stroke="${INK}" stroke-width="1.5"/>`).join("")).join("")}`, 860, 210)}
+  <!-- napkins + condiments for life -->
+  ${cel(s => `<rect x="958" y="276" width="20" height="38" rx="6" ${s}/>`, "#e04e39", "#b73a28", 4, 3, 3)}${cel(s => `<rect x="984" y="276" width="20" height="38" rx="6" ${s}/>`, "#ffd23f", "#e5a91c", 4, 3, 3)}
+  <path d="M962 276 l6 -14 l6 14 M988 276 l6 -14 l6 14" fill="#fff" stroke="${INK}" stroke-width="2.5"/>
+  ${cel(s => `<rect x="1014" y="282" width="40" height="32" rx="4" ${s}/>`, "#c9ccd1", "#a2a6ad", 4, 3, 3)}
+</svg>`;
+
+// ------------------------------------------------------------------------------------------
+// Shop front (entrance), cel-shaded, drawn from the old storefront photo.
+// ------------------------------------------------------------------------------------------
+ART.storefront = `
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" class="storefront" role="img" aria-label="The Constable Hoagie shop front">
+  <defs>
+    <pattern id="brick" width="44" height="22" patternUnits="userSpaceOnUse">
+      <rect width="44" height="22" fill="#c4553f"/><path d="M0 0.5 h44 M0 11 h44 M0 21.5 h44 M22 0 v11 M0 11 v11 M44 11 v11" stroke="#8f3428" stroke-width="2"/>
+      <rect x="3" y="3" width="15" height="4" rx="2" fill="#de7a5f" opacity=".7"/><rect x="25" y="14" width="15" height="4" rx="2" fill="#de7a5f" opacity=".7"/></pattern>
+    <pattern id="stripes" width="28" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="#fff8ec"/><rect x="14" width="14" height="10" fill="#3f8f5a"/></pattern>
+    <pattern id="stripesR" width="28" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="#fff8ec"/><rect x="14" width="14" height="10" fill="#e8384f"/></pattern>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fc3ff"/><stop offset="1" stop-color="#d9f1ff"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a6d86"/><stop offset=".5" stop-color="#5fa2bf"/><stop offset="1" stop-color="#2f5a70"/></linearGradient>
+  </defs>
+  <rect width="900" height="560" fill="url(#sky)"/>
+  ${[[120, 70, 1], [690, 46, .8], [420, 30, .6]].map(([x, y, k]) => `<g transform="translate(${x} ${y}) scale(${k})" class="cloud">${cel(s => `<path d="M0 30 q0 -22 24 -22 q8 -18 30 -14 q20 -10 34 8 q24 0 22 28z" ${s}/>`, "#ffffff", "#d6ecf7", 0, -6, 3)}</g>`).join("")}
+  <!-- building -->
+  ${cel(s => `<rect x="60" y="24" width="780" height="300" ${s}/>`, "url(#brick)", "#8f3428", 0, 0, 4)}
+  <rect x="60" y="24" width="780" height="300" fill="#000" opacity="0" />
+  <path d="M800 24 h40 v300 h-40z" fill="#000" opacity=".12"/>
+  ${cel(s => `<rect x="52" y="14" width="796" height="18" rx="3" ${s}/>`, "#7d2f27", "#5e221c", 0, -4, 3.5)}
+  ${[220, 560].map(x => `${cel(s => `<rect x="${x}" y="78" width="124" height="152" rx="4" ${s}/>`, "#fbf8f0", "#d8d1c0", 6, 5, 3.5)}
+    <rect x="${x + 12}" y="90" width="100" height="128" fill="url(#glass)" stroke="${INK}" stroke-width="3"/>
+    <path d="M${x + 45} 90 v128 M${x + 78} 90 v128 M${x + 12} 133 h100 M${x + 12} 176 h100" stroke="#fbf8f0" stroke-width="6"/>
+    <path d="M${x + 20} 100 l18 -6 M${x + 20} 112 l30 -12" stroke="#fff" stroke-width="4" opacity=".55" stroke-linecap="round"/>
+    ${cel(s => `<rect x="${x - 8}" y="228" width="140" height="12" rx="3" ${s}/>`, "#efe9da", "#cfc6b0", 0, -3, 3)}`).join("")}
+  <!-- corner sign -->
+  <g class="corner-sign"><rect x="736" y="0" width="8" height="40" fill="${INK}"/>
+    ${cel(s => `<rect x="684" y="36" width="172" height="46" rx="8" ${s}/>`, "#e8384f", "#b8243a", 6, 5, 4)}
+    <text x="770" y="67" font-size="21" text-anchor="middle" fill="#ffd23f" font-family="Lilita One, sans-serif">🥪 EST. 603</text>
+    ${cel(s => `<rect x="684" y="84" width="172" height="80" rx="8" ${s}/>`, "#fffdf3", "#e3dcc4", 6, 5, 4)}
+    <text x="770" y="115" font-size="22" text-anchor="middle" fill="${INK}" font-family="Alfa Slab One, serif">CONSTABLE</text>
+    <text x="770" y="148" font-size="27" text-anchor="middle" fill="#c8102e" font-family="Alfa Slab One, serif" stroke="${INK}" stroke-width="1">HOAGIE'S</text></g>
+  <!-- cornice + storefront -->
+  ${cel(s => `<rect x="46" y="300" width="808" height="24" rx="3" ${s}/>`, "#55565c", "#3c3d42", 0, -5, 3.5)}
+  ${cel(s => `<rect x="60" y="324" width="780" height="198" ${s}/>`, "#34353b", "#25262b", 0, 0, 3.5)}
+  ${cel(s => `<path d="M88 324 h304 l-18 42 h-268z" ${s}/>`, "url(#stripes)", "#2a6a40", 0, -8, 3.5)}
+  <path d="M104 366 ${Array.from({ length: 10 }, () => "q13.5 12 27 0").join(" ")}" fill="#3f8f5a" stroke="${INK}" stroke-width="3"/>
+  <path d="M104 372 h270 l-6 10 h-258z" fill="#000" opacity=".18"/>
+  ${cel(s => `<rect x="96" y="376" width="98" height="140" ${s}/>`, "#fbf8f0", "#d8d1c0", 4, 4, 3)}<rect x="104" y="384" width="82" height="124" fill="url(#glass)" stroke="${INK}" stroke-width="3"/>
+  ${cel(s => `<rect x="202" y="376" width="190" height="140" ${s}/>`, "#fbf8f0", "#d8d1c0", 4, 4, 3)}<rect x="210" y="384" width="174" height="124" fill="url(#glass)" stroke="${INK}" stroke-width="3"/>
+  <text x="297" y="408" font-size="16" text-anchor="middle" fill="#ffd23f" font-family="Lilita One, sans-serif" stroke="${INK}" stroke-width=".8">TODAY'S PLAYS</text>
+  <text x="297" y="452" font-size="36" text-anchor="middle">🥖💵🥖</text>
+  <text x="297" y="490" font-size="12" text-anchor="middle" fill="#fff" font-family="Nunito, sans-serif" font-weight="900">fresh every morning</text>
+  ${cel(s => `<path d="M440 324 h392 l-14 38 h-364z" ${s}/>`, "url(#stripesR)", "#b8243a", 0, -8, 3.5)}
+  <path d="M452 362 ${Array.from({ length: 15 }, () => "q12.2 11 24.4 0").join(" ")}" fill="#e8384f" stroke="${INK}" stroke-width="3"/>
+  ${cel(s => `<rect x="600" y="374" width="230" height="142" ${s}/>`, "#fbf8f0", "#d8d1c0", 4, 4, 3)}<rect x="608" y="382" width="214" height="126" fill="url(#glass)" stroke="${INK}" stroke-width="3"/>
+  <text x="715" y="420" font-size="19" text-anchor="middle" fill="#fff" font-family="Lilita One, sans-serif" stroke="${INK}" stroke-width=".8">ITALIAN SUBS</text>
+  <text x="715" y="446" font-size="15" text-anchor="middle" fill="#ffd23f" font-family="Lilita One, sans-serif">&amp; SMART PLAYS</text>
+  <text x="715" y="488" font-size="28" text-anchor="middle">🫒🍅🧀</text>
+  <path d="M618 392 l40 -8 M618 404 l60 -14" stroke="#fff" stroke-width="4" opacity=".5" stroke-linecap="round"/>
+  <g class="shop-door" tabindex="0" role="button" aria-label="Walk in">
+    ${cel(s => `<rect x="470" y="368" width="118" height="152" ${s}/>`, "#fbf8f0", "#d8d1c0", 4, 4, 3)}
+    ${cel(s => `<rect x="478" y="376" width="102" height="144" ${s}/>`, "#2f7a4a", "#215a36", 8, 4, 3)}
+    <rect x="490" y="386" width="78" height="56" rx="4" fill="url(#glass)" stroke="${INK}" stroke-width="3"/>
+    <text x="529" y="420" font-size="14" text-anchor="middle" fill="#ffd23f" font-family="Lilita One, sans-serif" stroke="${INK}" stroke-width=".6">OPEN</text>
+    ${[0, 1].map(r => [0, 1].map(c2 => `<rect x="${492 + c2 * 40}" y="${454 + r * 32}" width="34" height="26" rx="3" fill="#36884f" stroke="${INK}" stroke-width="2.5"/>`).join("")).join("")}
+    ${cel(s => `<circle cx="568" cy="452" r="5" ${s}/>`, "#f0c443", "#c79a1f", 2, 2, 2)}
+    <g class="door-marker"><g class="bounce">${cel(s => `<path d="M516 340 h26 l-4 22 h-18z" ${s}/>`, "#ffd23f", "#e5a91c", 3, 3, 3)}<text x="529" y="357" text-anchor="middle" font-size="18" font-family="Lilita One, sans-serif" fill="${INK}">!</text></g></g>
+  </g>
+  ${cel(s => `<rect x="0" y="522" width="900" height="38" ${s}/>`, "#c9c3b6", "#a9a395", 0, -6, 3)}
+  ${Array.from({ length: 12 }, (_, i) => `<path d="M${i * 80} 522 v38" stroke="#a29d93" stroke-width="2.5"/>`).join("")}
+</svg>`;
+
+// Neon Galactic theme art: the same shop layout and hotspots as the original, drawn as a
+// night-time galactic sub shop. Original art; uses hot() and the ART object from art.js.
+/* global ART, hot, uid */
+ART.NEON = {};
+(() => {
+  const M = "#ff3df2", C = "#3df5ff", L = "#b8ff4a", G = "#ffcf6b", V = "#7a3cff";
+  const glow = id => `<filter id="${id}" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+  const panel = (x, y, w, h, col, f) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#0a1222" opacity=".88"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="none" stroke="${col}" stroke-width="2.5" filter="url(#${f})"/>`;
+  const marker = () => "";  // markers come from hot()
+
+  ART.NEON.sceneBack = (() => {
+    const f = uid("ng");
+    const stars = Array.from({ length: 60 }, (_, i) => `<circle cx="${(i * 197) % 1200}" cy="${(i * 53) % 150 + 6}" r="${i % 5 ? 1 : 1.8}" fill="#fff" opacity="${.3 + (i % 4) * .15}"/>`).join("");
+    const towers = [[0, 120, 70], [64, 80, 54], [112, 140, 80], [186, 96, 50], [230, 60, 70], [296, 130, 60], [350, 90, 84], [430, 150, 56], [480, 70, 64],
+      [540, 120, 90], [624, 84, 50], [668, 140, 70], [732, 60, 58], [786, 110, 80], [860, 74, 54], [908, 130, 76], [978, 90, 60], [1032, 150, 70], [1096, 70, 104]];
+    const windows = towers.map(([x, h, w], k) => Array.from({ length: 6 }, (_, j) => `<rect x="${x + 8 + (j % 3) * (w / 3.4)}" y="${262 - h + 14 + Math.floor(j / 3) * 22 + (k % 3) * 9}" width="5" height="7" fill="${[G, C, M][(k + j) % 3]}" opacity="${(k + j) % 4 ? .7 : .25}"/>`).join("")).join("");
+    return `<svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" class="scene-svg neon">
+  <defs>${glow(f)}
+    <linearGradient id="${f}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140630"/><stop offset=".6" stop-color="#4a1470"/><stop offset="1" stop-color="#ff3d9a"/></linearGradient>
+    <radialGradient id="${f}p" cx="35%" cy="35%" r="70%"><stop offset="0" stop-color="#b9f3ff"/><stop offset=".5" stop-color="#4fa3d9"/><stop offset="1" stop-color="#1d1450"/></radialGradient>
+    <pattern id="${f}t" width="48" height="24" patternUnits="userSpaceOnUse"><rect width="48" height="24" fill="#1a1236"/><rect x="2" y="2" width="44" height="20" rx="2" fill="#241848"/><rect x="4" y="4" width="18" height="3" rx="1.5" fill="${C}" opacity=".12"/></pattern>
+    <filter id="${f}b"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <!-- panoramic window onto the neon city -->
+  <rect width="1200" height="262" fill="url(#${f}s)"/>${stars}
+  <circle cx="1040" cy="66" r="38" fill="url(#${f}p)"/><ellipse cx="1040" cy="68" rx="68" ry="11" fill="none" stroke="#c9b8ff" stroke-width="3" opacity=".7" transform="rotate(-14 1040 68)"/>
+  <path d="M168 34 a18 18 0 1 0 13 30 a14 14 0 1 1 -13 -30z" fill="#ffe9c9" opacity=".9"/>
+  <g fill="#0c0618">${towers.map(([x, h, w]) => `<rect x="${x}" y="${262 - h}" width="${w}" height="${h}"/>`).join("")}</g>${windows}
+  <path d="M0 200 C300 176 640 190 1200 160" stroke="${M}" stroke-width="2.5" fill="none" opacity=".6" filter="url(#${f})"/>
+  <g class="hovercar"><path d="M860 164 q12 -10 34 -9 q20 2 26 10 q-30 9 -60 -1z" fill="#1b0f30" stroke="${C}" stroke-width="2"/><ellipse cx="888" cy="176" rx="22" ry="3.5" fill="${C}" opacity=".7" filter="url(#${f})"/></g>
+  <g stroke="#2f2450" stroke-width="10">${[240, 480, 720, 960].map(x => `<line x1="${x}" y1="0" x2="${x}" y2="262"/>`).join("")}</g>
+  <rect x="0" y="252" width="1200" height="12" fill="#0d0819"/><rect x="0" y="252" width="1200" height="2" fill="${M}" filter="url(#${f})"/>
+  <!-- wall tile below the window -->
+  <rect x="0" y="264" width="1200" height="158" fill="url(#${f}t)"/>
+  <ellipse cx="600" cy="300" rx="320" ry="110" fill="${V}" opacity=".18" filter="url(#${f}b)"/>
+  <!-- pendant neon rings -->
+  ${[260, 600, 940].map((x, i) => `<path d="M${x} 0 v52" stroke="#2f2450" stroke-width="3"/><ellipse cx="${x}" cy="62" rx="30" ry="9" fill="none" stroke="${[M, C, M][i]}" stroke-width="4" filter="url(#${f})"/>`).join("")}
+  <!-- Connect: holo power panel -->
+  ${hot("connect", "🔌 Connect Counter", `${panel(42, 120, 96, 120, C, f)}
+    ${[0, 1, 2].map(i => `<circle cx="${70 + i * 20}" cy="152" r="6" fill="${[L, G, L][i]}" filter="url(#${f})"/>`).join("")}
+    <path d="M86 176 l-10 22 h14 l-7 24 l22 -32 h-14 l7 -14z" fill="${G}" filter="url(#${f})"/>`, 90, 116)}
+  <!-- News: holo board -->
+  ${hot("news", "📰 News Rail", `${panel(190, 96, 250, 140, C, f)}
+    <text x="315" y="134" text-anchor="middle" font-size="24" font-family="Anton, Impact, sans-serif" letter-spacing="2" fill="${C}">TODAY'S NEWS</text>
+    <path d="M214 156 h130 M214 178 h180 M214 200 h100" stroke="#d9f9ff" stroke-width="5" stroke-linecap="round" opacity=".6"/>
+    <circle cx="404" cy="200" r="10" fill="${M}" filter="url(#${f})"/>`, 315, 92)}
+  <!-- Playbook: holo menu -->
+  ${hot("playbook", "📋 Build a Playbook", `${panel(470, 86, 260, 150, M, f)}
+    <text x="600" y="124" text-anchor="middle" font-size="26" font-family="Anton, Impact, sans-serif" letter-spacing="2" fill="#fff">PLAYBOOK MENU</text>
+    <g font-family="Inter, sans-serif" font-weight="800" font-size="15">
+      <text x="496" y="158" fill="${M}">SAME DAY</text><text x="704" y="158" text-anchor="end" fill="#d9f9ff">HOT</text>
+      <text x="496" y="184" fill="${C}">2 DAYS – 4 WKS</text><text x="704" y="184" text-anchor="end" fill="#d9f9ff">FRESH</text>
+      <text x="496" y="210" fill="${L}">LONG HAUL</text><text x="704" y="210" text-anchor="end" fill="#d9f9ff">SLOW</text></g>`, 600, 82)}
+  <!-- Lotto: neon number machine -->
+  ${hot("lotto", "🎟️ Lucky Tickets", `${panel(760, 104, 150, 132, V, f)}
+    ${[0, 1, 2].map(i => `<circle cx="${800 + i * 35}" cy="146" r="13" fill="#0b0616" stroke="${[M, C, L][i]}" stroke-width="2.5"/><text x="${800 + i * 35}" y="152" text-anchor="middle" font-size="14" font-family="Anton, sans-serif" fill="#fff">${[7, 23, 41][i]}</text>`).join("")}
+    <text x="835" y="202" text-anchor="middle" font-size="20" font-family="Monoton, Anton, sans-serif" fill="none" stroke="${G}" stroke-width="1.2" filter="url(#${f})">LUCKY</text>`, 835, 100)}
+  <!-- Health: glowing grade -->
+  ${hot("health", "🩺 Health Inspector", `${panel(952, 104, 96, 120, L, f)}
+    <text x="1000" y="132" text-anchor="middle" font-size="11" font-family="Inter, sans-serif" font-weight="900" letter-spacing="2" fill="${L}">HEALTH</text>
+    <text x="1000" y="196" text-anchor="middle" font-size="56" font-family="Anton, Impact, sans-serif" fill="${L}" filter="url(#${f})" class="grade">A</text>`, 1000, 100)}
+  <!-- Avatar: holo mirror -->
+  ${hot("avatar", "🧑‍🚀 Make Your Avatar", `<ellipse cx="1124" cy="170" rx="50" ry="70" fill="#0a1222" opacity=".9"/><ellipse cx="1124" cy="170" rx="50" ry="70" fill="none" stroke="${M}" stroke-width="3" filter="url(#${f})"/>
+    <ellipse cx="1124" cy="170" rx="38" ry="58" fill="none" stroke="${C}" stroke-width="1.5" opacity=".6"/><path d="M1104 136 l24 -18 M1100 160 l40 -30" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".5"/>`, 1124, 96)}
+  <!-- floor: dark, reflective, perspective grid -->
+  <rect x="0" y="420" width="1200" height="140" fill="#0d0819"/>
+  <g stroke="#3a2a66" stroke-width="1" opacity=".7">${[446, 476, 512, 556].map(y => `<line x1="0" y1="${y}" x2="1200" y2="${y}"/>`).join("")}
+    ${[-600, -360, -160, 0, 160, 360, 600].map(d => `<line x1="600" y1="420" x2="${600 + d * 2.2}" y2="560"/>`).join("")}</g>
+  <path d="M0 420 h1200" stroke="${M}" stroke-width="2" filter="url(#${f})"/>
+</svg>`;
+  })();
+
+  ART.NEON.sceneFront = (() => {
+    const f = uid("nf");
+    return `<svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" class="scene-svg front neon">
+  <defs>${glow(f)}
+    <linearGradient id="${f}t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4dcff"/><stop offset=".45" stop-color="#8a7ab8"/><stop offset="1" stop-color="#2a1d48"/></linearGradient>
+    <linearGradient id="${f}c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1550"/><stop offset="1" stop-color="#120a26"/></linearGradient>
+    <linearGradient id="${f}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C}" stop-opacity=".3"/><stop offset="1" stop-color="${C}" stop-opacity=".05"/></linearGradient>
+  </defs>
+  <!-- counter -->
+  <path d="M150 330 h900 l14 108 h-928z" fill="url(#${f}c)"/>
+  ${Array.from({ length: 6 }, (_, i) => `<path d="M${260 + i * 140} 346 v80" stroke="#3a2470" stroke-width="2"/>`).join("")}
+  <path d="M138 434 h924" stroke="${M}" stroke-width="5" filter="url(#${f})"/>
+  <rect x="130" y="312" width="940" height="22" rx="7" fill="url(#${f}t)"/><rect x="130" y="332" width="940" height="2" fill="${C}" opacity=".8"/>
+  <!-- glass case with glowing subs -->
+  <path d="M420 248 h300 l20 64 h-340z" fill="url(#${f}g)" stroke="${C}" stroke-width="2"/>
+  <g filter="url(#${f})">${[470, 560, 650].map((x, i) => `<rect x="${x}" y="282" width="70" height="20" rx="10" fill="#e0a24a"/><path d="M${x + 6} 288 h58" stroke="${[L, "#ff4f6d", "#ff9ad5"][i]}" stroke-width="3"/>`).join("")}</g>
+  <!-- bell = Ask -->
+  ${hot("ask", "🔔 Ask the Constable", `<path d="M318 312 q0 -40 34 -40 q34 0 34 40z" fill="#1b1036" stroke="${G}" stroke-width="3" filter="url(#${f})"/>
+    <rect x="312" y="308" width="80" height="8" rx="4" fill="#2a1d48" stroke="${G}" stroke-width="2"/><circle cx="352" cy="268" r="7" fill="${G}" filter="url(#${f})"/>`, 352, 262)}
+  <!-- holo register = My Tab -->
+  ${hot("tab", "💼 My Tab", `<path d="M800 312 l10 -60 h100 l10 60z" fill="#151030" stroke="${V}" stroke-width="2.5"/>
+    <rect x="822" y="226" width="76" height="26" rx="4" fill="#0b2230" stroke="${C}" stroke-width="2"/>
+    <text x="860" y="246" text-anchor="middle" font-size="18" font-family="Anton, Impact, sans-serif" fill="${C}" filter="url(#${f})">$$$</text>
+    ${[0, 1, 2].map(r => [0, 1, 2, 3].map(c2 => `<rect x="${822 + c2 * 20}" y="${264 + r * 13}" width="14" height="9" rx="2" fill="#2a1d48" stroke="${C}" stroke-width="1" opacity=".9"/>`).join("")).join("")}`, 860, 222)}
+  <!-- plasma slicer + condiments -->
+  <circle cx="1000" cy="286" r="26" fill="#1a1236" stroke="#9a8ad0" stroke-width="3"/><circle cx="1000" cy="286" r="20" fill="none" stroke="${M}" stroke-width="3" filter="url(#${f})"/>
+  <rect x="960" y="304" width="80" height="10" rx="3" fill="#2a1d48"/>
+</svg>`;
+  })();
+
+  // Constable Hoagie, neon edition. Same shape as the mockup; classes match the original
+  // animations (head = nod, mouth = talk, armR = wave).
+  ART.NEON.hoagie = (eyes3 = false) => {
+    const u = uid("nh");
+    return `<svg viewBox="0 0 420 600" xmlns="http://www.w3.org/2000/svg" class="hoagie-neon" aria-label="Constable Hoagie">
+  <defs>
+    <radialGradient id="${u}sk" cx="42%" cy="34%" r="72%"><stop offset="0" stop-color="#f3c8a6"/><stop offset=".5" stop-color="#cf8f6a"/><stop offset="1" stop-color="#6a3a3c"/></radialGradient>
+    <linearGradient id="${u}al" x1="0" x2="1"><stop offset="0" stop-color="#7a3f4a"/><stop offset=".35" stop-color="#c98a68"/><stop offset=".7" stop-color="#e2a988"/><stop offset="1" stop-color="#9b5e4c"/></linearGradient>
+    <linearGradient id="${u}ar" x1="0" x2="1"><stop offset="0" stop-color="#9b5e4c"/><stop offset=".35" stop-color="#d79b78"/><stop offset=".75" stop-color="#b87458"/><stop offset="1" stop-color="#3a2a5a"/></linearGradient>
+    <linearGradient id="${u}hm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a3590"/><stop offset=".45" stop-color="#1e1440"/><stop offset="1" stop-color="#0a0716"/></linearGradient>
+    <linearGradient id="${u}bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#62452f"/><stop offset=".6" stop-color="#3c2a1e"/><stop offset="1" stop-color="#22160f"/></linearGradient>
+    <linearGradient id="${u}ap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ece6f6"/><stop offset=".6" stop-color="#b5a9cc"/><stop offset="1" stop-color="#5a4c78"/></linearGradient>
+    <linearGradient id="${u}tk" x1="0" x2="1"><stop offset="0" stop-color="#3a2d5a"/><stop offset=".45" stop-color="#15101f"/><stop offset="1" stop-color="#06040a"/></linearGradient>
+    <linearGradient id="${u}ln" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fd8" stop-opacity=".5"/><stop offset=".5" stop-color="#1b1030" stop-opacity=".15"/><stop offset="1" stop-color="#3df5ff" stop-opacity=".45"/></linearGradient>
+    <linearGradient id="${u}bn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="#b8701e"/></linearGradient>
+    <filter id="${u}g" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="${u}h" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="${u}r"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <filter id="${u}f" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="3" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="9" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <clipPath id="${u}cl"><path d="M142 300 Q100 300 90 348 L78 432 Q74 470 82 500 L114 502 Q118 466 122 432 L134 362 Z"/></clipPath>
+  </defs>
+  <ellipse cx="210" cy="300" rx="150" ry="230" fill="#7a3cff" opacity=".3" filter="url(#${u}h)"/>
+  <path d="M146 520 L142 600 L204 600 L210 548 L216 600 L278 600 L274 520 Z" fill="#2a2640"/>
+  <path d="M130 298 Q210 282 290 298 L302 526 Q210 544 118 526 Z" fill="url(#${u}tk)"/>
+  <path d="M142 300 Q100 300 90 348 L78 432 Q74 470 82 500 L114 502 Q118 466 122 432 L134 362 Z" fill="url(#${u}al)"/>
+  <g clip-path="url(#${u}cl)" fill="none" stroke-linecap="round">
+    <circle cx="112" cy="345" r="14" stroke="#1d2238" stroke-width="3" opacity=".8"/><ellipse cx="112" cy="345" rx="26" ry="6" stroke="#7a5cff" stroke-width="2" opacity=".85" transform="rotate(-20 112 345)"/>
+    <path d="M96 400 q20 10 12 30 q-8 18 10 30" stroke="#1d2238" stroke-width="4" opacity=".75"/><path d="M82 440 q14 -6 24 4 q8 10 22 4" stroke="#ff3df2" stroke-width="2" opacity=".6"/>
+    <path d="M84 470 h32 M84 480 h30" stroke="#1d2238" stroke-width="3" opacity=".7"/></g>
+  <ellipse cx="98" cy="512" rx="18" ry="20" fill="#c98a68"/>
+  <path d="M90 300 Q80 340 78 432 Q74 470 82 500" fill="none" stroke="#ff3df2" stroke-width="4" filter="url(#${u}r)" opacity=".9"/>
+  <path d="M280 300 Q322 302 332 346 L342 410 L302 442 L298 360 Z" fill="url(#${u}ar)"/>
+  <path d="M300 320 q20 8 30 30" stroke="#1d2238" stroke-width="4" opacity=".75" fill="none"/>
+  <path d="M290 298 Q330 304 336 350 L344 408" fill="none" stroke="#3df5ff" stroke-width="4" filter="url(#${u}r)" opacity=".9"/>
+  <path d="M176 300 L190 262 M244 300 L230 262" stroke="#cfc6e0" stroke-width="5"/>
+  <path d="M160 330 L260 330 L268 400 Q300 410 302 430 L302 548 Q210 564 118 548 L118 430 Q120 410 152 400 Z" fill="url(#${u}ap)"/>
+  <ellipse cx="160" cy="470" rx="16" ry="9" fill="#7a5a48" opacity=".22"/><ellipse cx="248" cy="508" rx="12" ry="7" fill="#7a5a48" opacity=".2"/>
+  <rect x="180" y="356" width="60" height="32" rx="6" fill="#160c26" stroke="#ff3df2" stroke-width="2" filter="url(#${u}g)"/>
+  <text x="210" y="380" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="20" letter-spacing="2" fill="#ff8af0">CH</text>
+  <g class="head">
+    <ellipse cx="149" cy="172" rx="12" ry="20" fill="#c98a68"/><ellipse cx="271" cy="172" rx="12" ry="20" fill="#b07258"/>
+    <ellipse cx="210" cy="160" rx="61" ry="75" fill="url(#${u}sk)"/>
+    <path d="M152 180 Q150 140 168 116" fill="none" stroke="#ff3df2" stroke-width="4" filter="url(#${u}r)" opacity=".85"/>
+    <path d="M268 180 Q270 140 252 116" fill="none" stroke="#3df5ff" stroke-width="4" filter="url(#${u}r)" opacity=".85"/>
+    <path d="M166 140 Q184 130 202 139" stroke="#3a281e" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M218 139 Q236 130 254 140" stroke="#3a281e" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <ellipse cx="185" cy="162" rx="7" ry="4.5" fill="#f6efe8"/><circle cx="186" cy="162" r="3.6" fill="#3b2a1e"/>
+    <ellipse cx="235" cy="162" rx="7" ry="4.5" fill="#f6efe8"/><circle cx="236" cy="162" r="3.6" fill="#3b2a1e"/>
+    <g class="eye3" ${eyes3 ? "" : 'style="display:none"'}><ellipse cx="210" cy="128" rx="10" ry="7" fill="#f6efe8" stroke="#3a281e" stroke-width="2"/><circle cx="210" cy="128" r="4.5" fill="#2fd17a"/><circle cx="211" cy="127" r="1.4" fill="#fff"/></g>
+    <path d="M210 168 Q203 192 197 199 Q210 206 223 199 Q217 192 210 168 Z" fill="#a8684e" opacity=".65"/>
+    <g filter="url(#${u}f)">
+      <path d="M148 168 Q144 218 166 254 Q188 290 210 298 Q232 290 254 254 Q276 218 272 168 Q262 198 246 206 Q228 216 210 214 Q192 216 174 206 Q158 198 148 168 Z" fill="url(#${u}bd)"/>
+      <path d="M180 206 Q196 194 210 203 Q224 194 240 206 Q228 220 210 214 Q192 220 180 206 Z" fill="#3e2a1f"/></g>
+    <g stroke="#8a6448" stroke-width="1.6" stroke-linecap="round" opacity=".55" fill="none"><path d="M168 222 q4 12 2 22"/><path d="M182 234 q3 14 0 26"/><path d="M198 240 q2 16 0 30"/><path d="M222 240 q-2 16 0 30"/><path d="M238 234 q-3 14 0 26"/><path d="M252 222 q-4 12 -2 22"/></g>
+    <path class="mouth" d="M199 224 Q210 229 221 224" stroke="#1e0f0a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="185" cy="161" r="22" fill="url(#${u}ln)" stroke="#0b0710" stroke-width="5"/><circle cx="235" cy="161" r="22" fill="url(#${u}ln)" stroke="#0b0710" stroke-width="5"/>
+    <path d="M207 158 Q210 153 213 158" stroke="#0b0710" stroke-width="4" fill="none"/><path d="M163 158 L150 160 M257 158 L270 160" stroke="#0b0710" stroke-width="4"/>
+    <path d="M142 124 Q138 60 174 32 Q210 6 246 32 Q282 60 278 124 Z" fill="url(#${u}hm)"/>
+    <path d="M154 110 Q150 66 180 40" stroke="#c9b8ff" stroke-width="3" opacity=".45" fill="none" stroke-linecap="round"/>
+    <circle cx="210" cy="14" r="7" fill="#c9b8ff"/><circle cx="210" cy="14" r="3" fill="#3df5ff" filter="url(#${u}g)"/>
+    <ellipse cx="210" cy="124" rx="78" ry="12" fill="#0f0a20" stroke="#7a3cff" stroke-width="2.5" filter="url(#${u}g)"/>
+    <g filter="url(#${u}g)"><path d="M210 56 l7 15 l16 2 l-12 11 l3 16 l-14 -8 l-14 8 l3 -16 l-12 -11 l16 -2z" fill="#3df5ff"/><rect x="200" y="76" width="20" height="7" rx="3.5" fill="#0b0616"/></g>
+  </g>
+  <g class="armR">
+    <path d="M342 404 Q346 432 322 448 L262 474 L252 450 L306 418 Z" fill="url(#${u}ar)"/>
+    <ellipse cx="226" cy="470" rx="70" ry="22" fill="#ffb347" opacity=".5" filter="url(#${u}h)"/>
+    <rect x="160" y="452" width="132" height="34" rx="17" fill="url(#${u}bn)"/>
+    <path d="M166 466 q11 -8 22 0 t22 0 t22 0 t22 0 t22 0 t8 0" stroke="#b8ff4a" stroke-width="4" fill="none" filter="url(#${u}g)"/>
+    <path d="M168 474 h120" stroke="#ff4f8a" stroke-width="5" filter="url(#${u}g)"/>
+    <ellipse cx="252" cy="462" rx="17" ry="19" fill="#d29674"/>
+  </g>
+</svg>`;
+  };
+})();
+</script>
+<script>
+document.getElementById("hg").innerHTML = ART.NEON && ART.NEON.hoagie ? ART.NEON.hoagie() : ART.toon(ART.HOAGIE);
+document.getElementById("kw").innerHTML = ART.kiwi || "";
+const LINES = ["Your money. Our questionable cat.", "I read the news so you don't have to. It's mostly bad. I find the good bits.",
+ "Kiwi has admin access. Nobody knows how.", "Every number is an estimate. Like my age.", "I never move your money. I barely move off this stool.",
+ "Dark Humor mode: all the jokes, none of the nudity."];
+let i = 0; const b = document.getElementById("bub");
+function next(){ b.classList.remove("on"); setTimeout(()=>{ b.textContent = LINES[i++ % LINES.length]; b.classList.add("on"); }, 350); }
+next(); setInterval(next, 3800);
+</script></body></html>

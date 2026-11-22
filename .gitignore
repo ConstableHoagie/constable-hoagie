@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+dist/
+*.zip
+*.env
+secrets*
+*.key
+*.pem
+.secrets/
+Thumbs.db
+# owner-only first-run seed (accounts + sign-in links): never publish
+app/seed/accounts.json
+app/seed/accounts.applied
+app/seed/zerocool.flag
+media/

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constable Hoagie</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥪</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Nunito:wght@500;700;900&family=Press+Start+2P&family=Anton&family=Monoton&family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="theme-neon.css">
+</head>
+<body>
+
+<!-- ============ ENTRANCE ============ -->
+<section id="entrance">
+  <div class="title-card">
+    <div class="logo">Constable Hoagie</div>
+    <div class="logo-tag">Protecting &amp; Serving Your Dough</div>
+  </div>
+  <div id="storefront-wrap"></div>
+  <button id="enter-btn" class="gbtn red xl">▶ PRESS START</button>
+  <div class="hint">or click the green door · music inside (mute anytime)</div>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section id="shop" hidden>
+  <header class="hud">
+    <div class="hud-logo"><span class="logo sm">Constable Hoagie</span><span class="logo-tag sm">Protecting &amp; Serving Your Dough</span></div>
+    <div class="hud-stats">
+      <button class="stat gift" id="update-badge" hidden title="A new version is ready"><span class="si">🎁</span><span>Update!</span></button>
+      <button class="stat" id="quest-chip" hidden title="Your setup quest"><span class="si">📜</span><span id="quest-n">Setup</span></button>
+      <button class="stat" id="stat-tab" title="My Tab"><span class="si">💰</span><span id="tab-total">$—</span></button>
+      <button class="stat" id="stat-streak" title="Days in a row you've stopped by"><span class="si">🔥</span><span id="streak">1</span></button>
+      <button class="stat" id="budget-chip" title="Your daily amount and risk"><span class="si">🌶</span><span>$25 · 2</span></button>
+      <button class="stat" id="health-chip" title="Health Inspector"><span class="si">🩺</span><span>…</span></button>
+      <button class="stat pixel" id="music-btn" title="Music on/off">♪ ON</button>
+    </div>
+  </header>
+
+  <div id="scene-wrap">
+  <div id="scene">
+    <div class="layer" id="scene-back"></div>
+    <div id="hoagie" class="actor" title="Click Constable Hoagie to ask anything"></div>
+    <div id="hoagie-bubble" hidden></div>
+    <div class="layer" id="scene-front"></div>
+    <div id="floor-layer">
+      <div id="scratcher" class="prop" title="Kiwi's scratcher"></div>
+      <button id="bowl" class="prop" title="Give Kiwi a treat"></button>
+      <div id="kiwi" class="actor" title="Pet Kiwi!"></div>
+      <div id="yarn" hidden>🧶</div>
+    </div>
+    <div class="scene-cta">
+      <button class="gbtn red" id="today-btn">🥪 Generate Today's Play</button>
+      <button class="gbtn green" id="playbook-btn">📋 Build a Playbook</button>
+      <button class="gbtn blue" id="plan-btn">🗺 Make My Money Plan</button>
+    </div>
+    <div id="pet-count" class="pet-count"></div>
+  </div>
+  </div>
+
+  <main class="below">
+    <section class="quest-log" aria-live="polite">
+      <div class="ql-head"><span class="ql-title">⭐ Today's Specials</span><span class="ql-sub">up to 3 things worth knowing</span></div>
+      <div id="special-list"><div class="loading">Slicing today's news…</div></div>
+    </section>
+    <nav class="dock">
+      <button class="dock-btn" data-open="ask"><span>🔔</span>Ask</button>
+      <button class="dock-btn" data-open="dash"><span>📊</span>Dashboard</button>
+      <button class="dock-btn" data-open="bets"><span>🎟</span>Bets</button>
+      <button class="dock-btn bet-view-only" data-open="sports"><span>🏈</span>Sports</button>
+      <button class="dock-btn" data-open="tab"><span>💼</span>My Tab</button>
+      <button class="dock-btn" data-open="news"><span>📰</span>News</button>
+      <button class="dock-btn" data-open="learn"><span>📚</span>Learn</button>
+      <button class="dock-btn" data-open="costs"><span>🧾</span>Costs</button>
+      <button class="dock-btn" data-open="trade"><span>📈</span>Trade</button>
+      <button class="dock-btn" data-open="give"><span>💚</span>Give</button>
+      <button class="dock-btn" data-open="email"><span>✉️</span>Email</button>
+      <button class="dock-btn" data-open="lotto"><span>🎟️</span>Tickets</button>
+      <button class="dock-btn" data-open="avatar"><span>🧑‍🍳</span>Avatar</button>
+      <button class="dock-btn" data-open="connect"><span>🔌</span>Connect</button>
+      <button class="dock-btn" data-open="integrations"><span>🧩</span>Integrations</button>
+      <button class="dock-btn" data-open="health"><span>🩺</span>Health</button>
+      <button class="dock-btn" data-open="me"><span>👤</span>Me</button>
+      <button class="dock-btn admin-only" data-open="admin"><span>🕶</span>The Gibson</button>
+    </nav>
+  </main>
+</section>
+
+<!-- ============ PANEL (one thing at a time) ============ -->
+<div id="panel-backdrop" hidden>
+  <div id="panel" role="dialog" aria-modal="true">
+    <button id="panel-close" aria-label="Close">✕</button>
+    <div id="panel-body"></div>
+  </div>
+</div>
+
+<!-- first-launch intro (cutscene) -->
+<div id="intro" hidden>
+  <div id="spot"></div>
+  <div class="dlg">
+    <div class="dlg-face" id="dlg-face"></div>
+    <div class="dlg-body"><div class="dlg-name">Constable Hoagie</div><div id="dlg-text"></div>
+      <div class="dlg-foot"><span id="dlg-step" class="tiny"></span><span><button class="btn" id="dlg-skip">Skip intro</button> <button class="btn gold" id="dlg-next">Next ▶</button></span></div></div>
+  </div>
+</div>
+
+<div id="print-area"></div>
+<div id="toast" hidden></div>
+
+<script src="art.js"></script>
+<script src="art-neon.js"></script>
+<script src="look.js"></script>
+<script src="music.js"></script>
+<script src="charts.js"></script>
+<script src="ai-free.js"></script>
+<script src="benefits.js"></script>
+<script src="app.js"></script>
+<script src="learn.js"></script>
+<script src="give.js"></script>
+<script src="trade.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="aisetup.js"></script>
+  <script src="bets.js"></script>
+  <script src="tour.js"></script>
+  <script src="admin.js"></script>
+  <script src="me.js"></script>
+  <script src="alison.js"></script>
+<script src="afterhours.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# Owner-only notes (only shown to the owner on their own PC)
+
+- **The business:**
+  - A New Hampshire LLC, used as the legal entity for cost mitigation. The brother's code name is **Doctor Crench**.
+  - Domain: constablehoagie.com (Cloudflare). Private beta: beta.constablehoagie.com.
+- **Donations and taxes:**
+  - Donations to the for-profit LLC are business income, not tax-deductible for donors.
+  - The LLC can't be a 501(c)(3). A nonprofit would be a separate NH nonprofit corporation with no owners, so it would be set up separately, and the betting picks would be a poor fit for a charitable purpose.
+  - A possible later step: a separate nonprofit for the free Learn content (1023-EZ, $275, if receipts stay ≤ $50k).
+  - Talk to a CPA before deciding.
+- **Shared copies:**
+  - The owner's own credentials are set by default on his PC.
+  - They must be removed from any shared version. Keys live in Windows Credential Manager and are never put in files or chat.
+  - The app never stores a Claude login; it uses whoever is logged in to Claude Code on that PC.
+- **Hosting:** the website is served from the owner's PC. A small cloud server would only help keep automations running while the PC is off; it was deferred because it would put keys on a server.
+- **Planned next:**
+  - Price alerts by email.
+  - Recurring buys and a rebalance helper (inside limits).
+  - Paper-trading Today's Play.
+  - Coinbase/Kraken orders.
+  - Discord alerts.
+  - SharpSports BetSync (needs a business agreement; the LLC could apply).
+  - API-Sports.
+  - Robinhood Agentic account.
+- **Original scope ideas** still on the table:
+  - DFS lineup optimizer with upload-ready CSVs.
+  - FX watch and alerts.
+  - A "Sub Club" leaderboard of shared paper portfolios. Pooling real money with friends is out of scope (legal agreements, taxes, securities law).
+- **Where the project lives:** the claude.ai project "Currency generator" (docs: money-desk-scope.md and the build logs). Every round's changes are summarized there.

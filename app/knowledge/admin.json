@@ -1,0 +1,213 @@
+{
+  "project": "Constable Hoagie",
+  "tagline": "Protecting & Serving Your Dough",
+  "start_date": "2026-11-21",
+  "time_spent": "About 9.5 hours of build time (Nov 21, afternoon, to Nov 22, about 1:45 AM ET), estimated from session timestamps",
+  "estimate_note": "Effort shares and efficiency gains are Claude's own estimates from the build conversation, not measured numbers.",
+  "revisions": [
+    {
+      "v": "0.1.0",
+      "date": "2026-11-21",
+      "what": "First build: shop, Hoagie & Kiwi, Today's Play, Playbook, My Tab, Ask, lottery, Health Inspector, one-click launcher"
+    },
+    {
+      "v": "0.2.0",
+      "date": "2026-11-21",
+      "what": "Cel-shaded game look, clickable shop level, character creator"
+    },
+    {
+      "v": "0.3.0",
+      "date": "2026-11-21",
+      "what": "Auto-updates from GitHub Releases, intro cutscene, Setup Quest"
+    },
+    {
+      "v": "0.3.1-0.4.0",
+      "date": "2026-11-21",
+      "what": "Private beta website (Cloudflare Tunnel), Staff Only sign-in, guest pass"
+    },
+    {
+      "v": "0.4.1",
+      "date": "2026-11-21",
+      "what": "Own sign-in replaces Cloudflare's; Under Construction login; hardening"
+    },
+    {
+      "v": "0.5.0",
+      "date": "2026-11-21",
+      "what": "Clear pick cards, Today's Games, Learn, Money Plan"
+    },
+    {
+      "v": "0.6.0",
+      "date": "2026-11-21",
+      "what": "Money-only vs full menu, Give, humanitarian news, daily email"
+    },
+    {
+      "v": "0.7.0",
+      "date": "2026-11-21",
+      "what": "Neon theme, net worth chart, Costs, SimpleFIN, Trading, free AI, After Hours"
+    },
+    {
+      "v": "0.8.0",
+      "date": "2026-11-21",
+      "what": "SnapTrade prompt, neon 18+ tour, Dashboard + free data feeds, upbeat news, 'What you get'"
+    },
+    {
+      "v": "0.9.0",
+      "date": "2026-11-21",
+      "what": "AI picker with fit scores, bring-your-own-agent, Agent API/MCP, Bet Tracker, All Integrations, demo, guided tour"
+    },
+    {
+      "v": "1.0.0",
+      "date": "2026-11-22",
+      "what": "Original vs Dark Humor picker, neon adult sign-in, Zero Cool tier, admin panel, sign-in links, project download, HTML readme"
+    },
+    {
+      "v": "1.1.0",
+      "date": "2026-11-22",
+      "what": "Alison's account (bright-side feed, Sports tab, her own avatar and garden shorts), first pass for every person, 👤 Me replays, website intro video"
+    },
+    {
+      "v": "1.2.0",
+      "date": "2026-11-22",
+      "what": "More flowers in Alison's garden shorts; private media library (media/ folder: offline player, character SVGs, screenshots) + 🎞 Media admin tab"
+    },
+    {
+      "v": "1.3.0",
+      "date": "2026-11-22",
+      "what": "GitHub autopatcher: scrubbed error reports → Claude drafts fix in GitHub Actions → tests → admin approves in the panel → automatic release; per-admin email/Discord notifications; CLAUDE.md reworked"
+    },
+    {
+      "v": "1.4.0",
+      "date": "2026-11-22",
+      "what": "Setup Everything: one-click install, accounts (ConstableHoagie, DoctorCrench, AliJoon), GitHub repo + first release, autopatcher secrets/labels/app, alerts, optional Share Online. Admin panel renamed ZeroCool's The Gibson."
+    }
+  ],
+  "sections": [
+    {
+      "name": "Foundation & launcher",
+      "category": "Core platform",
+      "goal": "Run the app on a Windows PC in one click and keep it healthy",
+      "includes": "Python server, launcher, auto-updates, Health Inspector, bug reports",
+      "effort": 10,
+      "could_save": 20,
+      "tips": [
+        "Start with a one-paragraph spec: 'Windows, local web app, Python stdlib only, one-click launcher, auto-update from GitHub Releases.'",
+        "Ask Claude to write a test checklist alongside each feature so fixes don't loop."
+      ]
+    },
+    {
+      "name": "Look, characters & animation",
+      "category": "Brand & experience",
+      "goal": "Make it fun and ADHD-friendly so people come back",
+      "includes": "Sub-shop scene, Hoagie & Kiwi, Original/Neon themes, music, intro/tour, After Hours, shorts, Alison's avatar and garden shorts, website intro video",
+      "effort": 18,
+      "could_save": 35,
+      "tips": [
+        "Share 2-3 reference images and one sentence of style rules up front ('cel-shaded, thick ink outlines, warm deadpan humor').",
+        "Approve a single mockup on a design canvas before any code ('make 3 options, I'll pick one').",
+        "Batch visual tweaks into one list instead of one at a time."
+      ]
+    },
+    {
+      "name": "Money tools",
+      "category": "Core financial features",
+      "goal": "Help people save, invest and see their whole picture",
+      "includes": "Today's Play, Playbook, Money Plan, My Tab, net worth, Costs, Learn, Give, email digest",
+      "effort": 15,
+      "could_save": 20,
+      "tips": [
+        "Give an example of the exact output you want (a filled-in play card) before asking for the feature.",
+        "Ask for 'the smallest version that's useful today' first, then layer on."
+      ]
+    },
+    {
+      "name": "Betting & fantasy",
+      "category": "Betting features",
+      "goal": "Honest, organized betting for the full menu",
+      "includes": "Today's Games price edges, lottery picker, Bet Tracker + charts, Kalshi, Sleeper, After Hours",
+      "effort": 12,
+      "could_save": 25,
+      "tips": [
+        "State the hard rules once in project instructions (no automated sportsbook bets, always show honest odds, 1-800-GAMBLER).",
+        "Ask Claude to research which APIs exist before designing screens around them."
+      ]
+    },
+    {
+      "name": "Integrations & data",
+      "category": "Integrations",
+      "goal": "Connect accounts and free data so Hoagie sees the real numbers",
+      "includes": "Alpaca, Coinbase, Kraken, SnapTrade, SimpleFIN, Treasury/BLS/SEC/FRED/Finnhub, integrations catalog",
+      "effort": 14,
+      "could_save": 25,
+      "tips": [
+        "Ask for a ranked shortlist ('top 10 free financial APIs with limits, sorted by usefulness') and pick from it in one message.",
+        "Keep one integrations doc as the single source of truth and ask Claude to update it each round."
+      ]
+    },
+    {
+      "name": "AI brains & agents",
+      "category": "AI & automation",
+      "goal": "Let anyone use the AI they have (or none) and plug in their own agents",
+      "includes": "Claude/GPT/Gemini/free/no-account picker, fit scores, Agent API, MCP server, webhooks, GitHub autopatcher (Claude Code GitHub Action)",
+      "effort": 8,
+      "could_save": 15,
+      "tips": [
+        "Name the agents you already use (Claude Desktop, n8n, ChatGPT actions) so Claude builds the exact connectors.",
+        "Ask for an MCP server early: it lets your own Claude test the app."
+      ]
+    },
+    {
+      "name": "Hosting, accounts & security",
+      "category": "Security & access",
+      "goal": "Put it online safely for a small private group",
+      "includes": "Cloudflare Tunnel website, sign-in, lockouts, tiers (Regular / Zero Cool), sign-in links, key storage, per-person feeds and Sports tab",
+      "effort": 9,
+      "could_save": 15,
+      "tips": [
+        "Never paste passwords or keys in chat: ask Claude for a setup step that prompts you on your PC instead.",
+        "Decide the access model (who, what tiers) in the first message about hosting."
+      ]
+    },
+    {
+      "name": "Demo, tour & docs",
+      "category": "Onboarding & docs",
+      "goal": "Show the whole thing working before anyone connects anything",
+      "includes": "10-persona simulated demo, guided tour with Ask Hoagie, README/HTML readme, integrations doc, build logs",
+      "effort": 10,
+      "could_save": 30,
+      "tips": [
+        "Ask for the demo data generator first: every later feature can be tested and screenshotted against it.",
+        "Request docs in one format (HTML + short MD) once and reuse the template every release."
+      ]
+    },
+    {
+      "name": "Cost mitigation: legal entity & service structure",
+      "category": "Cost mitigation (business / legal entity)",
+      "goal": "Lower costs and risk by running the project through a business entity and choosing who pays for what",
+      "includes": "NH LLC as the legal entity, donations vs income, nonprofit option for Learn, user-paid services (SimpleFIN paid by each user, not the host), PC hosting vs paid servers",
+      "effort": 2,
+      "could_save": 10,
+      "tips": [
+        "Ask Claude for a one-page 'decision memo' with options, costs and a CPA question list, then take it to a CPA.",
+        "Keep business notes in the owner-only knowledge file so the public app never shows them."
+      ]
+    },
+    {
+      "name": "Admin & handoff",
+      "category": "Project management",
+      "goal": "Give the Zero Cool admins the project story, a download and a way to ask questions",
+      "includes": "Admin panel, project stats, Ask Claude chat, project zip, CLAUDE.md workflows",
+      "effort": 2,
+      "could_save": 10,
+      "tips": [
+        "Ask for the admin/handoff view at the start so it grows with the project instead of being reconstructed at the end."
+      ]
+    }
+  ],
+  "overall_tips": [
+    "Put standing rules in the Claude project instructions (themes, safety rules, code names, 'never paste keys') so they never need repeating.",
+    "Send one message per round with a numbered list; Claude plans better with the whole picture than with drip-fed changes.",
+    "Ask Claude to keep a running CHANGELOG and build log in the project after every round (it did this here).",
+    "Use Claude Code with the GitHub repo connected so changes are committed and released directly instead of zipped.",
+    "Ask for screenshots after every UI change; reviewing pictures is faster than reading code."
+  ]
+}

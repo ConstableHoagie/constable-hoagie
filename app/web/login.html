@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Constable Hoagie · Under Construction</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚧</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Nunito:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<style>
+  body { min-height: 100vh; overflow: hidden; background: linear-gradient(var(--sky1), var(--sky2) 62%, #fff3dc); }
+  .tape { position: fixed; left: -10%; width: 120%; height: 44px; z-index: 4; border-top: var(--out); border-bottom: var(--out);
+    background: repeating-linear-gradient(-45deg, var(--gold) 0 34px, var(--ink) 34px 68px); box-shadow: var(--pop-s);
+    display: flex; align-items: center; justify-content: center; gap: 70px; overflow: hidden; }
+  .tape span { font: 20px var(--game); color: #fff; -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; letter-spacing: 3px; background: var(--ink); padding: 0 12px; border-radius: 8px; white-space: nowrap; }
+  .tape.t1 { top: 26px; transform: rotate(-2.5deg); }
+  .tape.t2 { bottom: 30px; transform: rotate(2deg); }
+  .scene { position: fixed; inset: 0; display: flex; align-items: flex-end; justify-content: center; z-index: 0; }
+  .scene .store { width: min(1150px, 130vw); opacity: .55; filter: saturate(.8); margin-bottom: -40px; }
+  .scaffold { position: fixed; inset: auto 0 0 0; height: 70vh; z-index: 1; pointer-events: none; }
+  .wrap { position: relative; z-index: 5; min-height: 100vh; display: grid; place-items: center; padding: 90px 16px; }
+  .card { position: relative; width: min(430px, 94vw); background: var(--paper); border: 4px solid var(--ink); border-radius: 28px; padding: 26px 26px 20px;
+    box-shadow: 0 10px 0 var(--ink), 0 30px 60px rgba(43,29,36,.3); animation: popin .35s cubic-bezier(.2,1.5,.4,1); }
+  .plate { margin: -60px auto 8px; width: 350px; max-width: 96%; text-align: center; padding: 10px 12px 8px; border: var(--out); border-radius: 16px; box-shadow: var(--pop-s);
+    background: var(--gold); position: relative; transform: rotate(-2deg); animation: wobble 3.2s ease-in-out infinite; }
+  .plate::before { content: ""; position: absolute; inset: 5px; border-radius: 11px; border: 5px solid transparent;
+    background: repeating-linear-gradient(-45deg, var(--ink) 0 8px, transparent 8px 16px) border-box;
+    -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+  .plate b { font: 21px/1.1 var(--game); white-space: nowrap; color: var(--ink); letter-spacing: 1px; position: relative; }
+  @keyframes wobble { 50% { transform: rotate(1.5deg); } }
+  .card h1 { font: 38px/1 var(--sign); color: var(--gold); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); text-align: center; margin: 14px 0 6px; }
+  .card .tag { text-align: center; font: 700 16px var(--body); color: var(--muted); margin: 0 0 12px; }
+  label.field { margin: 10px 0; } label.field input { width: 100%; font-size: 17px; }
+  .err { min-height: 24px; color: var(--red-d); font-weight: 800; margin: 6px 0 4px; text-align: center; }
+  .gbtn { width: 100%; }
+  .foot { text-align: center; margin-top: 12px; font-size: 13px; color: var(--muted); font-weight: 700; }
+  .card.shake { animation: shake .4s; }
+  @keyframes shake { 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+  .crew { position: fixed; z-index: 3; bottom: 92px; }
+  .crew.hoagie { left: max(2vw, calc(50% - 560px)); width: clamp(120px, 15vw, 200px); animation: breathe 2.6s ease-in-out infinite; transform-origin: bottom center; }
+  .crew.hoagie .armR { transform-origin: 120px 116px; animation: wave .6s ease-in-out 1.2s 4; }
+  .crew.kiwi { right: max(3vw, calc(50% - 540px)); width: clamp(110px, 12vw, 170px); }
+  .crew.kiwi .tail { transform-origin: 26px 72px; animation: tail 1.6s ease-in-out infinite; }
+  .crew.kiwi .keyes { transform: scaleY(.12); transform-origin: 125px 52px; }
+  .zz { position: fixed; z-index: 3; right: max(4vw, calc(50% - 520px)); bottom: 230px; font: 26px var(--game); color: #fff; -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; animation: floatUp 2.4s ease-out infinite; }
+  .cone { position: fixed; z-index: 3; bottom: 88px; width: 70px; animation: bob 1.8s ease-in-out infinite alternate; }
+  .cone.c1 { left: calc(50% - 300px); } .cone.c2 { left: calc(50% + 236px); animation-delay: .5s; }
+  @keyframes bob { to { transform: translateY(-5px); } }
+  @media (max-width: 760px) { .crew, .cone, .zz, .scaffold { display: none; } .tape span:nth-child(n+3) { display: none; } }
+  .demo-or { display: flex; align-items: center; gap: 10px; margin: 12px 0 8px; color: #8a7d6a; font-weight: 700; }
+  .demo-or::before, .demo-or::after { content: ""; flex: 1; height: 2px; background: rgba(0,0,0,.12); }
+  #demo { width: 100%; }
+  /* ---- Dark Humor look: the neon, grown-up construction zone ---- */
+  body.look-dark { background: radial-gradient(circle at 50% 10%, #2a0f55, #0b0418 60%, #05010d); color: #eee6ff; }
+  body.look-dark .scene .store { filter: brightness(.2) saturate(1.6) hue-rotate(240deg) blur(1px); opacity: .7; }
+  body.look-dark .tape { background: repeating-linear-gradient(-45deg, #ff3df2 0 34px, #12061f 34px 68px); border-color: #3df5ff; box-shadow: 0 0 22px rgba(255,61,242,.55); }
+  body.look-dark .tape span { background: #12061f; color: #3df5ff; -webkit-text-stroke: 0; text-shadow: 0 0 8px #3df5ff; }
+  body.look-dark .card { background: rgba(18,8,36,.92); border-color: #ff3df2; box-shadow: 0 0 0 2px #3df5ff, 0 0 40px rgba(255,61,242,.55); color: #eee6ff; }
+  body.look-dark .plate { background: #12061f; border-color: #3df5ff; box-shadow: 0 0 18px rgba(61,245,255,.5); }
+  body.look-dark .plate::before { background: repeating-linear-gradient(-45deg, #ff3df2 0 8px, transparent 8px 16px) border-box; }
+  body.look-dark .plate b { color: #3df5ff; text-shadow: 0 0 10px #3df5ff; font-size: 17px; }
+  body.look-dark .card h1 { color: #ff3df2; -webkit-text-stroke: 0; text-shadow: 0 0 14px #ff3df2, 0 0 30px #7a2cff; font-family: Monoton, "Alfa Slab One", serif; }
+  body.look-dark .card .tag, body.look-dark .foot { color: #bfb2e8; }
+  body.look-dark label.field { color: #eee6ff; }
+  body.look-dark label.field input { background: #0c0618; color: #fff; border-color: #6d5aa8; }
+  body.look-dark .gbtn.red { background: linear-gradient(180deg, #ff3df2, #a3149e); border-color: #ff3df2; box-shadow: 0 0 18px rgba(255,61,242,.6); -webkit-text-stroke: 0; }
+  body.look-dark .gbtn.blue { background: #0f2236; color: #c9fbff; border-color: #3df5ff; box-shadow: 0 0 14px rgba(61,245,255,.45); -webkit-text-stroke: 0; }
+  body.look-dark .gbtn::before { display: none; }
+  body.look-dark .zz { color: #3df5ff; -webkit-text-stroke: 0; text-shadow: 0 0 8px #3df5ff; }
+  body.look-dark .cone { filter: drop-shadow(0 0 10px #ff8a2a) saturate(1.4); }
+  body.look-dark .crew.hoagie svg { filter: drop-shadow(0 0 16px rgba(61,245,255,.55)); }
+  body.look-dark .demo-or { color: #9f90cf; } body.look-dark .demo-or::before, body.look-dark .demo-or::after { background: #3a2a66; }
+  .look-switch { position: fixed; right: 14px; bottom: 12px; z-index: 6; font: 800 13px var(--body); background: rgba(255,255,255,.75); border: 2px solid var(--ink); border-radius: 12px; padding: 6px 10px; cursor: pointer; }
+  body.look-dark .look-switch { background: #12061f; color: #3df5ff; border-color: #3df5ff; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+</head>
+<body data-hoagie-login="1">
+<div class="scene"><div class="store" id="store"></div></div>
+<svg class="scaffold" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+  <g stroke="#2b1d24" stroke-width="4" stroke-linecap="round">
+    <g stroke="#9aa7b4" stroke-width="10"><path d="M150 600 V90 M330 600 V90 M870 600 V90 M1050 600 V90"/><path d="M150 200 H330 M150 380 H330 M870 200 H1050 M870 380 H1050"/>
+      <path d="M150 380 L330 200 M870 200 L1050 380"/></g>
+    <path d="M140 196 h200 M860 196 h200 M140 376 h200 M860 376 h200" stroke="#c79a5b" stroke-width="16"/>
+  </g>
+</svg>
+<div class="tape t1"><span>UNDER CONSTRUCTION</span><span>CREW ONLY</span><span>UNDER CONSTRUCTION</span><span>FRESH PLAYS SOON</span></div>
+<div class="tape t2"><span>PARDON OUR CRUMBS</span><span>CREW ONLY</span><span>OPENING SOON</span><span>PARDON OUR CRUMBS</span></div>
+<div class="crew hoagie" id="lhoagie" aria-hidden="true"></div>
+<div class="crew kiwi" id="lkiwi" aria-hidden="true"></div><div class="zz" aria-hidden="true">z z z</div>
+<div class="cone c1" id="cone1" aria-hidden="true"></div><div class="cone c2" id="cone2" aria-hidden="true"></div>
+
+<div class="wrap">
+  <form class="card" id="f" autocomplete="on">
+    <div class="plate"><b>🚧 UNDER CONSTRUCTION</b></div>
+    <h1>Constable Hoagie</h1>
+    <p class="tag">We're still slicing the bread. Crew members, sign in below.</p>
+    <label class="field">Username<input id="u" name="username" autocomplete="username" required maxlength="24" autofocus></label>
+    <label class="field">Password<input id="p" name="password" type="password" autocomplete="current-password" required></label>
+    <div class="err" id="e" role="alert"></div>
+    <button class="gbtn red" id="go" type="submit">🔑 Sign in</button>
+    <div class="foot" id="foot">No account yet? The shop owner hands them out.</div>
+    <div class="demo-or"><span>or</span></div>
+    <button class="gbtn blue" id="demo" type="button">👀 Try the demo</button>
+    <div class="foot">A full tour with <b>simulated</b> money, bets and apps. A different person and set of connected apps every time you click.</div>
+  </form>
+</div>
+
+<script src="art.js"></script>
+<script src="art-neon.js"></script>
+<script src="look.js"></script>
+<script>
+  const $ = s => document.querySelector(s);
+  $("#store").innerHTML = ART.storefront;
+  $("#lhoagie").innerHTML = ART.toon(Object.assign({}, ART.HOAGIE, { hat: "hardhat" }));
+  $("#lkiwi").innerHTML = ART.kiwi;
+  const cone = `<svg viewBox="0 0 80 96" xmlns="http://www.w3.org/2000/svg">${cel(s => `<path d="M30 8 h20 l18 76 h-56z" ${s}/>`, "#f6772f", "#d4561a", 6, 4)}
+    <path d="M24 34 h32 l3 12 h-38z M18 58 h44 l3 12 h-50z" fill="#fff" stroke="${INK}" stroke-width="2.5"/>
+    ${cel(s => `<rect x="4" y="82" width="72" height="12" rx="4" ${s}/>`, "#f6772f", "#d4561a", 2, 3, 3)}</svg>`;
+  $("#cone1").innerHTML = cone; $("#cone2").innerHTML = cone;
+  const ORIG = { tag: $(".tag").textContent, plate: $(".plate b").textContent, t1: $(".t1").innerHTML, t2: $(".t2").innerHTML, hoagie: $("#lhoagie").innerHTML };
+  function applyLook(v) {
+    const dark = v === "dark";
+    document.body.classList.toggle("look-dark", dark);
+    $(".plate b").textContent = dark ? "🚧 UNDER CONSTRUCTION · 18+" : ORIG.plate;
+    $(".tag").textContent = dark ? "The crew's still wiring the neon. Grown-ups with a key, sign in below." : ORIG.tag;
+    $(".t1").innerHTML = dark ? "<span>UNDER CONSTRUCTION</span><span>ADULT SUPERVISION REQUIRED</span><span>DARK HUMOR ZONE</span><span>NO NUDITY · JUST NUMBERS</span>" : ORIG.t1;
+    $(".t2").innerHTML = dark ? "<span>MIND THE CAT</span><span>CREW ONLY</span><span>BAD DECISIONS AHEAD</span><span>MIND THE CAT</span>" : ORIG.t2;
+    $("#lhoagie").innerHTML = dark && ART.NEON && ART.NEON.hoagie ? ART.NEON.hoagie() : ORIG.hoagie;
+    $(".zz").textContent = dark ? "plotting…" : "z z z";
+    $("#lookbtn").textContent = dark ? "🥪 Switch to Original" : "🌃 Switch to Dark Humor";
+  }
+  const sw = document.createElement("button"); sw.className = "look-switch"; sw.id = "lookbtn"; sw.type = "button"; document.body.appendChild(sw);
+  sw.onclick = () => { const v = LOOK.get() === "dark" ? "original" : "dark"; LOOK.set(v); applyLook(v); };
+  // first visit: the Original-look intro video (pause/skip), then pick a look, then sign in
+  const pickLook = () => { if (LOOK.get()) applyLook(LOOK.get()); else { applyLook("original"); LOOK.choose(applyLook); } };
+  applyLook(LOOK.get() || "original");
+  if (!LOOK.tourVideoSeen()) LOOK.tourVideo(pickLook); else pickLook();
+  const rv = document.createElement("button"); rv.className = "look-switch"; rv.style.right = "auto"; rv.style.left = "14px"; rv.type = "button";
+  rv.textContent = "▶ Watch the intro"; rv.onclick = () => LOOK.tourVideo(); document.body.appendChild(rv);
+  fetch("/api/auth/status").then(r => r.json()).then(d => {
+    if (d.signed_in !== false) location.replace("/");
+    if (!d.has_logins) $("#foot").textContent = "No crew accounts yet. The owner can make them at the Connect counter on their PC.";
+  }).catch(() => {});
+  $("#demo").addEventListener("click", async () => {
+    $("#demo").disabled = true; $("#demo").textContent = "🎲 Shuffling a demo…";
+    try {
+      const r = await fetch("/api/auth/demo", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      const d = await r.json(); if (!r.ok) throw new Error(d.error || "Demo isn't available right now.");
+      $("#demo").textContent = "🎭 Meet " + d.persona + "…"; setTimeout(() => location.replace("/?enter=1"), 500);
+    } catch (e) { $("#e").textContent = e.message; $("#demo").disabled = false; $("#demo").textContent = "👀 Try the demo"; }
+  });
+  $("#f").addEventListener("submit", async ev => {
+    ev.preventDefault(); $("#go").disabled = true; $("#e").textContent = "";
+    try {
+      const r = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: $("#u").value, password: $("#p").value }) });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Couldn't sign in.");
+      $("#go").textContent = "✅ Welcome to the crew!";
+      setTimeout(() => location.replace("/?enter=1"), 450);
+      return;
+    } catch (e) {
+      $("#e").textContent = e.message; $("#p").value = ""; $("#p").focus();
+      const c = $("#f"); c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake");
+    }
+    $("#go").disabled = false;
+  });
+</script>
+</body>
+</html>

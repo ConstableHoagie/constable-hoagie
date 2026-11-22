@@ -1,0 +1,22 @@
+# Runs the same checks the autopatcher uses on every pull request and push.
+name: Tests
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: pip install keyring cryptography
+      - run: python dev/run_tests.py

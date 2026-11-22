@@ -1,0 +1,112 @@
+/* Neon Galactic theme. Everything is scoped to body.theme-neon, so the original look is untouched.
+   Default for the full menu; anyone can switch with the theme button. */
+body.theme-neon {
+  --ink: #3b2a66; --red: #ff3df2; --red-d: #a3149e; --green: #2fd17a; --green-d: #18a85c; --gold: #ffcf6b; --gold-d: #e0a43c;
+  --blue: #2fc8e8; --blue-d: #3df5ff; --purple: #7a3cff; --cream: #1b1036; --paper: #120a24; --muted: #a99bd0;
+  --sky1: #0b0616; --sky2: #1c0f33;
+  --out: 1px solid #4b3a7a; --pop: 0 0 18px rgba(122, 60, 255, .35); --pop-s: 0 0 10px rgba(122, 60, 255, .3);
+  --game: "Anton", "Impact", "Arial Narrow Bold", sans-serif;
+  --sign: "Monoton", "Anton", Impact, sans-serif;
+  --body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --neon-m: #ff3df2; --neon-c: #3df5ff; --neon-l: #b8ff4a; --text: #efe9ff;
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 70% -10%, #3a1470 0%, transparent 60%), linear-gradient(#0b0616, #120a22 60%, #07040e);
+  letter-spacing: .1px;
+}
+body.theme-neon a { color: var(--neon-c); }
+body.theme-neon .tiny, body.theme-neon .fine { color: var(--muted); }
+
+/* logo + headings glow */
+body.theme-neon .logo { font-family: var(--game); letter-spacing: 3px; color: #fff; -webkit-text-stroke: 0;
+  text-shadow: 0 0 8px var(--neon-m), 0 0 24px #b13cff; }
+body.theme-neon .logo-tag { color: var(--neon-c); -webkit-text-stroke: 0; text-shadow: 0 0 10px rgba(61,245,255,.6); letter-spacing: 3px; text-transform: uppercase; font-family: var(--body); font-weight: 800; }
+body.theme-neon #panel h2, body.theme-neon .ql-title, body.theme-neon .dlg-name { color: #fff; -webkit-text-stroke: 0; letter-spacing: 1px;
+  text-shadow: 0 0 10px var(--neon-m), 0 0 22px rgba(177,60,255,.7); text-transform: uppercase; }
+body.theme-neon h3.sec { color: var(--neon-c); text-shadow: 0 0 10px rgba(61,245,255,.45); text-transform: uppercase; letter-spacing: 1px; }
+
+/* surfaces: dark glass */
+body.theme-neon .btn, body.theme-neon .stat, body.theme-neon #hoagie-bubble, body.theme-neon .pet-count, body.theme-neon .quest-log,
+body.theme-neon .dock-btn, body.theme-neon .toggle, body.theme-neon .risk-dial button, body.theme-neon .play-card, body.theme-neon .pill.grey,
+body.theme-neon .conn, body.theme-neon .answer, body.theme-neon #toast, body.theme-neon .tabs button, body.theme-neon .picker .val,
+body.theme-neon .notes, body.theme-neon .quest, body.theme-neon .course, body.theme-neon .lesson, body.theme-neon .lesson-card,
+body.theme-neon .seg button, body.theme-neon .menu-opt, body.theme-neon .give-card, body.theme-neon .ticket, body.theme-neon .ball,
+body.theme-neon .method, body.theme-neon .chart-card, body.theme-neon .cost-row, body.theme-neon .broker {
+  background: rgba(22, 13, 42, .92); color: var(--text); border-color: #4b3a7a;
+}
+body.theme-neon .dock-btn:hover, body.theme-neon .btn:hover, body.theme-neon .toggle:hover { background: #22134a; box-shadow: 0 0 16px rgba(255,61,242,.4); border-color: var(--neon-m); }
+body.theme-neon .toggle.on, body.theme-neon .seg button.on, body.theme-neon .risk-dial button.on, body.theme-neon .lesson.done, body.theme-neon .menu-opt.on {
+  background: #3a1240; border-color: var(--neon-m); color: #ffd9fb; box-shadow: 0 0 14px rgba(255,61,242,.45);
+}
+body.theme-neon #panel { background: rgba(14, 8, 28, .97); border: 1px solid var(--neon-m); box-shadow: 0 0 40px rgba(255,61,242,.35); color: var(--text); }
+body.theme-neon #panel-close { background: #2a0e33; border-color: var(--neon-m); color: var(--neon-m); }
+body.theme-neon input[type=text], body.theme-neon input[type=number], body.theme-neon input[type=password], body.theme-neon input[type=email],
+body.theme-neon input[type=time], body.theme-neon input[type=date], body.theme-neon select, body.theme-neon textarea {
+  background: #0d0719; color: var(--text); border: 1px solid #4b3a7a; box-shadow: none; color-scheme: dark;
+}
+body.theme-neon input:focus, body.theme-neon select:focus, body.theme-neon textarea:focus { outline: 2px solid var(--neon-c); }
+body.theme-neon .hud { background: linear-gradient(180deg, #150b28, #0d0719); border-bottom: 2px solid var(--purple); box-shadow: 0 0 24px rgba(122,60,255,.45); }
+body.theme-neon .skip { background: #2a1a08; border: 1px solid var(--gold); color: #ffe2a0; }
+body.theme-neon .quick { color: #fff; }
+body.theme-neon .special { border-top-color: #2f2450; }
+body.theme-neon .news-item { border-bottom-color: #2f2450; }
+body.theme-neon .special .em { background: #2a1240; border-color: var(--neon-m); }
+body.theme-neon .special .tag { background: #3a1240; border-color: var(--neon-m); color: #ffb3f6; }
+body.theme-neon .special summary { color: var(--neon-c); }
+body.theme-neon .pick-ticket { background: #160d2a; border: 1px solid #3a2a66; }
+body.theme-neon .t-row { border-top-color: #3a2a66; }
+body.theme-neon .t-row dt { background: #1b1036; color: #ff8af0; border-right-color: #3a2a66; letter-spacing: 1px; text-transform: uppercase; font-size: 15px; }
+body.theme-neon .pos { color: var(--neon-l); } body.theme-neon .neg { color: #ff7a9a; }
+body.theme-neon .m-exp.pos { color: var(--neon-l); } body.theme-neon .m-exp.neg { color: #ff7a9a; }
+body.theme-neon .conf { border-color: currentColor; background: transparent; }
+body.theme-neon .conf.hi { color: var(--neon-l); } body.theme-neon .conf.md { color: var(--gold); } body.theme-neon .conf.lo { color: #ff7a9a; }
+body.theme-neon .play-card::before { background: var(--neon-m); border: 0; box-shadow: 0 0 12px var(--neon-m); }
+body.theme-neon .play-card.calm::before { background: var(--neon-l); box-shadow: 0 0 12px var(--neon-l); }
+body.theme-neon .play-card.game::before { background: var(--neon-c); box-shadow: 0 0 12px var(--neon-c); }
+body.theme-neon .try { background: #0f2620; border-color: var(--neon-l); }
+body.theme-neon .check { background: #1b1036; }
+body.theme-neon .g-rank { background: #3a1240; border-color: var(--neon-m); color: #fff; }
+body.theme-neon .give-card.alt .g-rank { background: #10283a; border-color: var(--neon-c); }
+body.theme-neon .xp, body.theme-neon .bar, body.theme-neon .split { background: #0d0719; border-color: #4b3a7a; }
+body.theme-neon .guest-pass { background: #3a1240; }
+body.theme-neon .dlg { background: rgba(14,8,28,.96); border-color: var(--neon-m); color: var(--text); box-shadow: 0 0 30px rgba(255,61,242,.4); }
+body.theme-neon .dlg-face { background: radial-gradient(circle at 50% 40%, #3a1470, #0b0616); border-color: var(--neon-c); }
+
+/* buttons: neon tubes */
+body.theme-neon .gbtn { border: 2px solid currentColor; text-transform: uppercase; letter-spacing: 1px; -webkit-text-stroke: 0; text-shadow: none; }
+body.theme-neon .gbtn::before, body.theme-neon .gbtn::after { display: none; }
+body.theme-neon .gbtn.red { background: linear-gradient(180deg, #ff3df2, #a3149e); color: #fff; border-color: var(--neon-m); box-shadow: 0 0 18px rgba(255,61,242,.6); }
+body.theme-neon .gbtn.green { background: #0f2236; color: #c9fbff; border-color: var(--neon-c); box-shadow: 0 0 14px rgba(61,245,255,.45); }
+body.theme-neon .gbtn.blue { background: #18230e; color: #e6ffc4; border-color: var(--neon-l); box-shadow: 0 0 14px rgba(184,255,74,.4); }
+body.theme-neon .gbtn.gold { background: #2a1a08; color: #ffe2a0; border-color: var(--gold); }
+body.theme-neon .btn.go { background: #18230e; color: #e6ffc4; border-color: var(--neon-l); }
+body.theme-neon .btn.primary { background: #3a1240; color: #ffd9fb; border-color: var(--neon-m); }
+
+/* scene frame + characters */
+body.theme-neon #scene-wrap { background: linear-gradient(#0b0616, #1c0f33 45%, #0d0819 45%, #0d0819 47.5%, #1a1236 47.5%, #1a1236 75%, #0d0819 75%); border-bottom: 2px solid var(--neon-m); }
+body.theme-neon #scene { box-shadow: 0 0 60px rgba(122,60,255,.35); }
+body.theme-neon .hot .marker path { fill: var(--neon-m); }
+body.theme-neon #kiwi svg { filter: drop-shadow(-2px 0 1px rgba(255,61,242,.85)) drop-shadow(2px 0 1px rgba(61,245,255,.85)); }
+body.theme-neon #kiwi .keyes ellipse:nth-child(-n+2) { fill: #7dff6a; filter: drop-shadow(0 0 3px #7dff6a); }
+body.theme-neon .kcollar { display: inline; }
+body.theme-neon .roamer svg, body.theme-neon .avatar svg, body.theme-neon .fig svg, body.theme-neon .spin svg, body.theme-neon .reg svg {
+  filter: drop-shadow(-2px 0 1px rgba(255,61,242,.8)) drop-shadow(2px 0 1px rgba(61,245,255,.8));
+}
+body.theme-neon #hoagie .armR { transform-origin: 330px 410px; }
+body.theme-neon #hoagie.talk .mouth, body.theme-neon .dlg-face.talk .mouth { transform-origin: 210px 224px; }
+body.theme-neon #hoagie.happy .head { transform-origin: 210px 200px; }
+body.theme-neon .dlg-face svg { width: 100%; margin-top: 6px; }
+
+/* entrance at night */
+body.theme-neon #entrance { background: radial-gradient(900px 500px at 50% 0%, #3a1470, transparent 70%); }
+body.theme-neon .storefront { filter: brightness(.62) saturate(1.35) hue-rotate(-12deg) contrast(1.05); }
+body.theme-neon #storefront-wrap { position: relative; }
+body.theme-neon #storefront-wrap::after { content: "OPEN LATE"; position: absolute; left: 50%; top: 4%; transform: translateX(-50%);
+  font: 34px var(--sign); color: #fff; text-shadow: 0 0 6px var(--neon-m), 0 0 18px var(--neon-m), 0 0 40px #b13cff; pointer-events: none; letter-spacing: 4px; }
+
+/* theme switch chip */
+.theme-chip .si { font-size: 16px; }
+.kcollar { display: none; }
+
+body.theme-neon #hoagie { left: 10%; width: 20%; max-width: 280px; bottom: 26%; }
+body.theme-neon #hoagie-bubble { left: calc(10% + min(18%, 250px)); }
+body.theme-neon .pill { color: #1a1030; } body.theme-neon .pill.grey { color: var(--text); }
